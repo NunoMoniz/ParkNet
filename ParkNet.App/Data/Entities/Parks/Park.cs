@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ParkNet.App.Data.Entities;
+﻿namespace ParkNet.App.Data.Entities.Parks;
 
 public class Park
 {
