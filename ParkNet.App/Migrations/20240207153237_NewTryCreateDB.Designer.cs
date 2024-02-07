@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParkNet.App.Data;
 
@@ -11,9 +12,11 @@ using ParkNet.App.Data;
 namespace ParkNet.App.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240207153237_NewTryCreateDB")]
+    partial class NewTryCreateDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -331,15 +334,10 @@ namespace ParkNet.App.Data.Migrations
                     b.Property<DateOnly>("PermitAccess")
                         .HasColumnType("date");
 
-                    b.Property<int>("SpaceId")
-                        .HasColumnType("int");
-
                     b.Property<int>("VehicleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SpaceId");
 
                     b.HasIndex("VehicleId");
 
@@ -360,15 +358,10 @@ namespace ParkNet.App.Data.Migrations
                     b.Property<DateTime>("ExitDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("SpaceId")
-                        .HasColumnType("int");
-
                     b.Property<int>("VehicleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SpaceId");
 
                     b.HasIndex("VehicleId");
 
@@ -532,38 +525,22 @@ namespace ParkNet.App.Data.Migrations
 
             modelBuilder.Entity("ParkNet.App.Data.Entities.Payments.Permit", b =>
                 {
-                    b.HasOne("ParkNet.App.Data.Entities.Parks.Space", "Space")
-                        .WithMany()
-                        .HasForeignKey("SpaceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ParkNet.App.Data.Entities.Users.Vehicle", "Vehicle")
                         .WithMany()
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Space");
 
                     b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("ParkNet.App.Data.Entities.Payments.Ticket", b =>
                 {
-                    b.HasOne("ParkNet.App.Data.Entities.Parks.Space", "Space")
-                        .WithMany()
-                        .HasForeignKey("SpaceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ParkNet.App.Data.Entities.Users.Vehicle", "Vehicle")
                         .WithMany()
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Space");
 
                     b.Navigation("Vehicle");
                 });

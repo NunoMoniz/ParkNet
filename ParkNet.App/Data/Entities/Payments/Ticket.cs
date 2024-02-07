@@ -9,4 +9,6 @@ public class Ticket
     public DateTime ExitDateTime { get; set; }
     public int VehicleId { get; set; }
     public Vehicle Vehicle { get; set; }
+    public int SpaceId { get; set; }
+    public Space Space { get; set; }
 }
