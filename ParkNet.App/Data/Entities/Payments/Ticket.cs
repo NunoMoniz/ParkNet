@@ -2,12 +2,11 @@
 
 public class Ticket
 {
-    [Key]
-    public int TicketId { get; set; }
-    [Required]
-    public Vehicle VehicleId { get; set; }
+    public int Id { get; set; }
     [Required]
     public DateTime EntryDateTime { get; set; }
     [Required]
     public DateTime ExitDateTime { get; set; }
+    public int VehicleId { get; set; }
+    public Vehicle Vehicle { get; set; }
 }

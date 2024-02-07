@@ -2,8 +2,7 @@
 
 public class Park
 {
-    [Key]
-    public int ParkId { get; set; }
+    public int Id { get; set; }
     [Required]
     public string Name { get; set; }
 }

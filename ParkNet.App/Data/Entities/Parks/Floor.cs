@@ -2,10 +2,9 @@
 
 public class Floor
 {
-    [Key]
-    public int FloorId { get; set; }
-    [Required]
-    public Park ParkId { get; set; }
+    public int Id { get; set; }
     [Required]
     public int Name { get; set; }
+    public int ParkId { get; set; }
+    public Park Park { get; set; }
 }

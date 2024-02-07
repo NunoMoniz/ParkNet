@@ -18,7 +18,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Users\" />
+    <Folder Include="Pages\Parks\Floor\" />
+    <Folder Include="Pages\Parks\Park\" />
+    <Folder Include="Pages\Parks\Tariff\" />
+    <Folder Include="Pages\Parks\Space\" />
+    <Folder Include="Pages\Payments\Tickets\" />
+    <Folder Include="Pages\Payments\Permits\" />
+    <Folder Include="Pages\Users\Documents\" />
+    <Folder Include="Pages\Users\Vehicles\" />
+    <Folder Include="Pages\Users\Transactions\" />
   </ItemGroup>
 
 </Project>

@@ -2,10 +2,7 @@
 
 public class Tariff
 {
-    [Key]
-    public int TariffId { get; set; }
-    [Required]
-    public Park ParkId { get; set; }
+    public int Id { get; set; }
     [Required]
     public double First15min { get; set; }
     [Required]
@@ -16,4 +13,6 @@ public class Tariff
     public double Fourth15min { get; set; }
     [Required]
     public double SecondAndNextHours { get; set; }
+    public int ParkId { get; set; }
+    public Park Park { get; set; }
 }

@@ -2,12 +2,7 @@
 
 public class Permit
 {
-    [Key]
-    public int PermitId { get; set; }
-    [Required]
-    public Vehicle VehicleId { get; set; }
-    [Required]
-    public Park ParkId { get; set; }
+    public int Id { get; set; }
     [Required]
     public int Name { get; set; }
     [Required]
@@ -20,4 +15,6 @@ public class Permit
             return PermitAccess.AddMonths(Name);
         }
     }
+    public int VehicleId { get; set; }
+    public Vehicle Vehicle { get; set; }
 }
