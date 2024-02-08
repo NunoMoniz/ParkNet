@@ -1,6 +1,6 @@
-﻿namespace ParkNet.App.Data.Entities.Parks;
+﻿namespace ParkNet.App.Data.Entities.Payments;
 
-public class Tariff
+public class TariffTicket
 {
     public int Id { get; set; }
     [Required]
@@ -13,6 +13,4 @@ public class Tariff
     public double Fourth15min { get; set; }
     [Required]
     public double SecondAndNextHours { get; set; }
-    public int ParkId { get; set; }
-    public Park Park { get; set; }
 }

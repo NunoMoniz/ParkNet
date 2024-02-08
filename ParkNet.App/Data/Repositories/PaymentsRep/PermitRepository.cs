@@ -9,40 +9,15 @@ public class PermitRepository
         _ctx = ctx;
     }
 
-    public async Task<IEnumerable<Permit>> GetPermitsAsync()
-    {
-        return await _ctx.Permits.ToListAsync();
-    }
+    public async Task<List<Permit>> GetAllAsync() => await _ctx.Permits.ToListAsync();
 
-    public async Task<Permit> GetPermitByIdAsync(int id)
-    {
-        return await _ctx.Permits.FindAsync(id);
-    }
+    public async Task<Permit> GetByIdAsync(int id) => await _ctx.Permits.FirstOrDefaultAsync(m => m.Id == id);
 
-    public async Task<Permit> AddPermitAsync(Permit permit)
+    public async Task<Permit> AddAsync(Permit permit)
     {
         _ctx.Permits.Add(permit);
         await _ctx.SaveChangesAsync();
-        return permit;
-    }
 
-    public async Task<Permit> UpdatePermitAsync(Permit permit)
-    {
-        _ctx.Entry(permit).State = EntityState.Modified;
-        await _ctx.SaveChangesAsync();
-        return permit;
-    }
-
-    public async Task<Permit> DeletePermitAsync(int id)
-    {
-        var permit = await _ctx.Permits.FindAsync(id);
-        if (permit == null)
-        {
-            return null;
-        }
-
-        _ctx.Permits.Remove(permit);
-        await _ctx.SaveChangesAsync();
         return permit;
     }
 }

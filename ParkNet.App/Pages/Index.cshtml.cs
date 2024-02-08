@@ -1,20 +1,25 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-
 namespace ParkNet.App.Pages
 {
     public class IndexModel : PageModel
     {
+        private readonly ApplicationDbContext _ctx;
         private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(ApplicationDbContext ctx, ILogger<IndexModel> logger)
         {
+            _ctx = ctx;
             _logger = logger;
         }
 
         public void OnGet()
         {
 
+            //var park = new Park() { };
+            //var floor = new Floor() { };
+            //park.Floors.Add(floor);
+
+            //_ctx.Parks.Add(park);
+            //_ctx.SaveChanges();
         }
     }
 }

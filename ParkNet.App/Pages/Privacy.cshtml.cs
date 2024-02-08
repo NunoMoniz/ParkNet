@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-
-namespace ParkNet.App.Pages
+﻿namespace ParkNet.App.Pages
 {
     public class PrivacyModel : PageModel
     {

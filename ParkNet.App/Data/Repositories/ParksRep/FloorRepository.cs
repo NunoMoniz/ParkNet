@@ -9,40 +9,15 @@ public class FloorRepository
         _ctx = ctx;
     }
 
-    public async Task<IEnumerable<Floor>> GetFloorsAsync()
-    {
-        return await _ctx.Floors.ToListAsync();
-    }
+    public async Task<List<Floor>> GetAllAsync() => await _ctx.Floors.ToListAsync();
 
-    public async Task<Floor> GetFloorByIdAsync(int id)
-    {
-        return await _ctx.Floors.FindAsync(id);
-    }
+    public async Task<Floor> GetByIdAsync(int id) => await _ctx.Floors.FirstOrDefaultAsync(m => m.Id == id);
 
-    public async Task<Floor> AddFloorAsync(Floor floor)
+    public async Task<Floor> AddAsync(Floor floor)
     {
         _ctx.Floors.Add(floor);
         await _ctx.SaveChangesAsync();
-        return floor;
-    }
 
-    public async Task<Floor> UpdateFloorAsync(Floor floor)
-    {
-        _ctx.Entry(floor).State = EntityState.Modified;
-        await _ctx.SaveChangesAsync();
-        return floor;
-    }
-
-    public async Task<Floor> DeleteFloorAsync(int id)
-    {
-        var floor = await _ctx.Floors.FindAsync(id);
-        if (floor == null)
-        {
-            return null;
-        }
-
-        _ctx.Floors.Remove(floor);
-        await _ctx.SaveChangesAsync();
         return floor;
     }
 }

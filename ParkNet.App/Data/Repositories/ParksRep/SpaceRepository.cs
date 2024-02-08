@@ -9,40 +9,14 @@ public class SpaceRepository
         _ctx = ctx;
     }
 
-    public async Task<IEnumerable<Space>> GetSpacesAsync()
-    {
-        return await _ctx.Spaces.ToListAsync();
-    }
+    public async Task<List<Space>> GetAllAsync() => await _ctx.Spaces.ToListAsync();
+    public async Task<Space> GetByIdAsync(int id) => await _ctx.Spaces.FirstOrDefaultAsync(m => m.Id == id);
 
-    public async Task<Space> GetSpaceByIdAsync(int id)
-    {
-        return await _ctx.Spaces.FindAsync(id);
-    }
-
-    public async Task<Space> AddSpaceAsync(Space space)
+    public async Task<Space> AddAsync(Space space)
     {
         _ctx.Spaces.Add(space);
         await _ctx.SaveChangesAsync();
-        return space;
-    }
 
-    public async Task<Space> UpdateSpaceAsync(Space space)
-    {
-        _ctx.Entry(space).State = EntityState.Modified;
-        await _ctx.SaveChangesAsync();
-        return space;
-    }
-
-    public async Task<Space> DeleteSpaceAsync(int id)
-    {
-        var space = await _ctx.Spaces.FindAsync(id);
-        if (space == null)
-        {
-            return null;
-        }
-
-        _ctx.Spaces.Remove(space);
-        await _ctx.SaveChangesAsync();
         return space;
     }
 }

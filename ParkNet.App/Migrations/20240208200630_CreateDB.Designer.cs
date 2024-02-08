@@ -9,11 +9,11 @@ using ParkNet.App.Data;
 
 #nullable disable
 
-namespace ParkNet.App.Data.Migrations
+namespace ParkNet.App.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240207150705_EntitiesAndRepsCreation")]
-    partial class EntitiesAndRepsCreation
+    [Migration("20240208200630_CreateDB")]
+    partial class CreateDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -287,39 +287,6 @@ namespace ParkNet.App.Data.Migrations
                     b.ToTable("Spaces");
                 });
 
-            modelBuilder.Entity("ParkNet.App.Data.Entities.Parks.Tariff", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double>("First15min")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Fourth15min")
-                        .HasColumnType("float");
-
-                    b.Property<int>("ParkId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Second15min")
-                        .HasColumnType("float");
-
-                    b.Property<double>("SecondAndNextHours")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Third15min")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ParkId");
-
-                    b.ToTable("Tariffs");
-                });
-
             modelBuilder.Entity("ParkNet.App.Data.Entities.Payments.Permit", b =>
                 {
                     b.Property<int>("Id")
@@ -334,10 +301,15 @@ namespace ParkNet.App.Data.Migrations
                     b.Property<DateOnly>("PermitAccess")
                         .HasColumnType("date");
 
+                    b.Property<int>("SpaceId")
+                        .HasColumnType("int");
+
                     b.Property<int>("VehicleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SpaceId");
 
                     b.HasIndex("VehicleId");
 
@@ -352,10 +324,13 @@ namespace ParkNet.App.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Entry")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("EntryDateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("Exit")
+                    b.Property<DateTime>("ExitDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SpaceId")
                         .HasColumnType("int");
 
                     b.Property<int>("VehicleId")
@@ -363,33 +338,11 @@ namespace ParkNet.App.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("SpaceId");
+
                     b.HasIndex("VehicleId");
 
                     b.ToTable("Tickets");
-                });
-
-            modelBuilder.Entity("ParkNet.App.Data.Entities.Users.Document", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BankCard")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DrivingLicense")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Documents");
                 });
 
             modelBuilder.Entity("ParkNet.App.Data.Entities.Users.Transaction", b =>
@@ -400,7 +353,7 @@ namespace ParkNet.App.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("InsAndOuts")
+                    b.Property<double>("Transactions")
                         .HasColumnType("float");
 
                     b.Property<string>("UserId")
@@ -493,7 +446,7 @@ namespace ParkNet.App.Data.Migrations
             modelBuilder.Entity("ParkNet.App.Data.Entities.Parks.Floor", b =>
                 {
                     b.HasOne("ParkNet.App.Data.Entities.Parks.Park", "Park")
-                        .WithMany()
+                        .WithMany("Floors")
                         .HasForeignKey("ParkId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -512,46 +465,42 @@ namespace ParkNet.App.Data.Migrations
                     b.Navigation("Floor");
                 });
 
-            modelBuilder.Entity("ParkNet.App.Data.Entities.Parks.Tariff", b =>
+            modelBuilder.Entity("ParkNet.App.Data.Entities.Payments.Permit", b =>
                 {
-                    b.HasOne("ParkNet.App.Data.Entities.Parks.Park", "Park")
+                    b.HasOne("ParkNet.App.Data.Entities.Parks.Space", "Space")
                         .WithMany()
-                        .HasForeignKey("ParkId")
+                        .HasForeignKey("SpaceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Park");
-                });
-
-            modelBuilder.Entity("ParkNet.App.Data.Entities.Payments.Permit", b =>
-                {
                     b.HasOne("ParkNet.App.Data.Entities.Users.Vehicle", "Vehicle")
                         .WithMany()
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Space");
 
                     b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("ParkNet.App.Data.Entities.Payments.Ticket", b =>
                 {
+                    b.HasOne("ParkNet.App.Data.Entities.Parks.Space", "Space")
+                        .WithMany()
+                        .HasForeignKey("SpaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ParkNet.App.Data.Entities.Users.Vehicle", "Vehicle")
                         .WithMany()
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Space");
+
                     b.Navigation("Vehicle");
-                });
-
-            modelBuilder.Entity("ParkNet.App.Data.Entities.Users.Document", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ParkNet.App.Data.Entities.Users.Transaction", b =>
@@ -570,6 +519,11 @@ namespace ParkNet.App.Data.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ParkNet.App.Data.Entities.Parks.Park", b =>
+                {
+                    b.Navigation("Floors");
                 });
 #pragma warning restore 612, 618
         }
