@@ -1,4 +1,4 @@
-﻿namespace ParkNet.App.Data;
+﻿namespace ParkNet.App.Data.Creators;
 
 public class SpaceCreator
 {
@@ -32,7 +32,7 @@ public class SpaceCreator
         }
         return $"{letter}{col + 1}";
     }
-    private static Space[,] SpaceInfo()
+    public static Space[,] SpaceInfo()
     {
         string[] plan = planUpload;
         Space[,] space = new Space[rows, cols];
@@ -54,37 +54,31 @@ public class SpaceCreator
         }
         return space;
     }
-    public static void Print()
-    {
-        Space[,] space = SpaceInfo();
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < cols; j++)
-            {
-                Console.Write(space[i, j].Name + " ");
-            }
-            Console.WriteLine();
-        }
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < cols; j++)
-            {
-                Console.Write(space[i, j].Type + " ");
-            }
-            Console.WriteLine();
-        }
-    }
-    private static void UploadSpaces()
-    {
-        var floorRepo = new FloorRepository(new ApplicationDbContext());
-        var spaceRepo = new SpaceRepository(new ApplicationDbContext());
-        var floors = floorRepo.GetAllAsync().Result;
-        foreach (Floor floor in floors)
-        {
-
-        }
-        if (c == 'C' || c == 'M')
-        {
-        }
-    }
+    //public static void Print()
+    //{
+    //    Space[,] space = SpaceInfo();
+    //    for (int i = 0; i < rows; i++)
+    //    {
+    //        for (int j = 0; j < cols; j++)
+    //        {
+    //            Console.Write(space[i, j].Name + " ");
+    //        }
+    //        Console.WriteLine();
+    //    }
+    //    for (int i = 0; i < rows; i++)
+    //    {
+    //        for (int j = 0; j < cols; j++)
+    //        {
+    //            Console.Write(space[i, j].Type + " ");
+    //        }
+    //        Console.WriteLine();
+    //    }
+    //}
+    //private static void UploadSpaces()
+    //{
+    //    var spaceRepo = new SpaceRepository(new ApplicationDbContext());
+    //    if (c == 'C' || c == 'M')
+    //    {
+    //    }
+    //}
 }

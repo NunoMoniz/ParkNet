@@ -1,4 +1,5 @@
-using ParkNet.App.Data;
+using ParkNet.App.Data.Repositories.PaymentsRep;
+using ParkNet.App.Data.Repositories.UsersRep;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,14 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
+
+builder.Services.AddScoped<SpaceRepository>();
+builder.Services.AddScoped<FloorRepository>();
+builder.Services.AddScoped<ParkRepository>();
+builder.Services.AddScoped<PermitRepository>();
+builder.Services.AddScoped<TicketRepository>();
+builder.Services.AddScoped<TransactionRepository>();
+builder.Services.AddScoped<VehicleRepository>();
 
 var app = builder.Build();
 

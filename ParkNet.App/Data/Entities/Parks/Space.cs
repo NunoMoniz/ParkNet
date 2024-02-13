@@ -1,4 +1,6 @@
-﻿namespace ParkNet.App.Data.Entities.Parks;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace ParkNet.App.Data.Entities.Parks;
 
 public class Space
 {
@@ -6,6 +8,7 @@ public class Space
     [Required]
     public string Name { get; set; }
     public char Type { get; set; }
+    [AllowNull]
     public int FloorId { get; set; }
     public Floor Floor { get; set; }
 }

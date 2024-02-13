@@ -1,25 +1,21 @@
-namespace ParkNet.App.Pages
+namespace ParkNet.App.Pages;
+
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    private readonly ApplicationDbContext _ctx;
+    private readonly ILogger<IndexModel> _logger;
+
+    public IndexModel(ApplicationDbContext ctx, ILogger<IndexModel> logger)
     {
-        private readonly ApplicationDbContext _ctx;
-        private readonly ILogger<IndexModel> _logger;
+        _ctx = ctx;
+        _logger = logger;
+    }
+    public void OnGet()
+    {
 
-        public IndexModel(ApplicationDbContext ctx, ILogger<IndexModel> logger)
-        {
-            _ctx = ctx;
-            _logger = logger;
-        }
+    }
+    public void OnPost()
+    {
 
-        public void OnGet()
-        {
-
-            //var park = new Park() { };
-            //var floor = new Floor() { };
-            //park.Floors.Add(floor);
-
-            //_ctx.Parks.Add(park);
-            //_ctx.SaveChanges();
-        }
     }
 }
