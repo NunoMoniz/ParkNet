@@ -11,9 +11,9 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+@*             <div class="form-group">
                 <label asp-for="Space.Name" class="control-label"></label>
                 <input asp-for="Space.Name" class="form-control" />
                 <span asp-validation-for="Space.Name" class="text-danger"></span>
@@ -25,7 +25,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="Space.FloorId" class="control-label"></label>
-                <select asp-for="Space.FloorId" class ="form-control" asp-items="ViewBag.FloorId"></select>
+                <select asp-for="Space.FloorId" class="form-control" asp-items="ViewBag.FloorId"></select>
+            </div> *@
+            <div class="form-group">
+                <label for="file">Upload Text File:</label>
+                <input type="file" id="file" name="file" class="form-contrAnd ol-file" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -33,11 +37,23 @@
         </form>
     </div>
 </div>
-
+<div>
+    @if (!string.IsNullOrEmpty(Model.FileContent))
+    {
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <h4>Uploaded File Content:</h4>
+                <pre>@Model.FileContent</pre>
+            </div>
+        </div>
+    }
+</div>
 <div>
     <a asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

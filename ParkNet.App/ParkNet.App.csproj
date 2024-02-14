@@ -22,12 +22,10 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Pages\Parks\Floors\" />
     <Folder Include="Pages\Parks\Tariffs\" />
     <Folder Include="Pages\Payments\Tickets\" />
     <Folder Include="Pages\Payments\Permits\" />
     <Folder Include="Pages\Users\Documents\" />
-    <Folder Include="Pages\Users\Vehicles\" />
     <Folder Include="Pages\Users\Transactions\" />
   </ItemGroup>
 

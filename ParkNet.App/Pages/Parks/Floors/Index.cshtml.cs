@@ -1,4 +1,4 @@
-﻿namespace ParkNet.App.Pages.Parks.Parks;
+﻿namespace ParkNet.App.Pages.Parks.Floors;
 
 [Authorize]
 public class IndexModel : PageModel
@@ -10,10 +10,13 @@ public class IndexModel : PageModel
         _context = context;
     }
 
-    public IList<Park> Park { get;set; } = default!;
+    public IList<Floor> Floor { get;set; } = default!;
 
     public async Task OnGetAsync()
     {
-        Park = await _context.Parks.ToListAsync();
+        var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        Floor = await _context.Floors
+            .Include(f => f.Park).ToListAsync();
     }
 }

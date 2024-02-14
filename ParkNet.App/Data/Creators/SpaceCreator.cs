@@ -2,7 +2,8 @@
 
 public class SpaceCreator
 {
-    private static readonly string[] planUpload = File.ReadAllLines("C:\\Restart10\\teste.txt");
+    public static string[] planUpload;
+    //public static string[] GetPlanUpload() { return planUpload; }
     private static readonly int rows = planUpload.Length;
     private static readonly int cols = MatrixCounter();
     private static int MatrixCounter()
@@ -54,26 +55,7 @@ public class SpaceCreator
         }
         return space;
     }
-    //public static void Print()
-    //{
-    //    Space[,] space = SpaceInfo();
-    //    for (int i = 0; i < rows; i++)
-    //    {
-    //        for (int j = 0; j < cols; j++)
-    //        {
-    //            Console.Write(space[i, j].Name + " ");
-    //        }
-    //        Console.WriteLine();
-    //    }
-    //    for (int i = 0; i < rows; i++)
-    //    {
-    //        for (int j = 0; j < cols; j++)
-    //        {
-    //            Console.Write(space[i, j].Type + " ");
-    //        }
-    //        Console.WriteLine();
-    //    }
-    //}
+
     //private static void UploadSpaces()
     //{
     //    var spaceRepo = new SpaceRepository(new ApplicationDbContext());

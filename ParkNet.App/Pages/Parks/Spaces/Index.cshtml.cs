@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
-
-namespace ParkNet.App.Pages.Parks.Spaces;
+﻿namespace ParkNet.App.Pages.Parks.Spaces;
 
 [Authorize]
 public class IndexModel : PageModel

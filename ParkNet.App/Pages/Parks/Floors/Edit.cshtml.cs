@@ -1,4 +1,4 @@
-﻿namespace ParkNet.App.Pages.Parks.Spaces;
+﻿namespace ParkNet.App.Pages.Parks.Floors;
 
 public class EditModel : PageModel
 {
@@ -10,7 +10,7 @@ public class EditModel : PageModel
     }
 
     [BindProperty]
-    public Space Space { get; set; } = default!;
+    public Floor Floor { get; set; } = default!;
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
@@ -19,13 +19,13 @@ public class EditModel : PageModel
             return NotFound();
         }
 
-        var space =  await _context.Spaces.FirstOrDefaultAsync(m => m.Id == id);
-        if (space == null)
+        var floor =  await _context.Floors.FirstOrDefaultAsync(m => m.Id == id);
+        if (floor == null)
         {
             return NotFound();
         }
-        Space = space;
-       ViewData["FloorId"] = new SelectList(_context.Floors, "Id", "Id");
+        Floor = floor;
+       ViewData["ParkId"] = new SelectList(_context.Parks, "Id", "Name");
         return Page();
     }
 
@@ -38,14 +38,14 @@ public class EditModel : PageModel
             return Page();
         }
 
-        if (_context.Spaces.Any(s => s.Name == Space.Name && s.FloorId == Space.FloorId))
+        if (_context.Floors.Any(f => f.Name == Floor.Name && f.ParkId == Floor.ParkId))
         {
-            ModelState.AddModelError(string.Empty, "Já existe um lugar com esse nome no mesmo piso.");
-            ViewData["FloorId"] = new SelectList(_context.Floors, "Id", "Name");
+            ModelState.AddModelError(string.Empty, "Já existe um andar com esse nome no parque.");
+            ViewData["ParkId"] = new SelectList(_context.Parks, "Id", "Name");
             return Page();
         }
 
-        _context.Attach(Space).State = EntityState.Modified;
+        _context.Attach(Floor).State = EntityState.Modified;
 
         try
         {
@@ -53,7 +53,7 @@ public class EditModel : PageModel
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!SpaceExists(Space.Id))
+            if (!FloorExists(Floor.Id))
             {
                 return NotFound();
             }
@@ -66,8 +66,8 @@ public class EditModel : PageModel
         return RedirectToPage("./Index");
     }
 
-    private bool SpaceExists(int id)
+    private bool FloorExists(int id)
     {
-        return _context.Spaces.Any(e => e.Id == id);
+        return _context.Floors.Any(e => e.Id == id);
     }
 }

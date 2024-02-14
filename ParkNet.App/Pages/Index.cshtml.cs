@@ -10,6 +10,7 @@ public class IndexModel : PageModel
         _ctx = ctx;
         _logger = logger;
     }
+
     public void OnGet()
     {
 
