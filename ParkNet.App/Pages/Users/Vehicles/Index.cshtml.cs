@@ -8,7 +8,7 @@ public class IndexModel : PageModel
     {
         _context = context;
     }
-    public IList<Vehicle> Vehicle { get;set; } = default!;
+    public IList<Vehicle> Vehicle { get; set; } = default!;
     public async Task OnGetAsync()
     {
         Vehicle = await _context.Vehicles

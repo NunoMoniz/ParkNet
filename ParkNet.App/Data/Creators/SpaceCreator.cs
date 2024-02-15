@@ -2,15 +2,13 @@
 
 public class SpaceCreator
 {
-    public static string[] planUpload;
-    //public static string[] GetPlanUpload() { return planUpload; }
-    private static readonly int rows = planUpload.Length;
-    private static readonly int cols = MatrixCounter();
-    private static int MatrixCounter()
+    public static string[] planUpload = new string[] { };
+    public static readonly int rows = planUpload.Length;
+    public static readonly int cols = ColsCounter();
+    private static int ColsCounter()
     {
-        string[] lines = planUpload;
         int cols = 0;
-        foreach (string line in lines)
+        foreach (string line in planUpload)
         {
             if (line.Length > cols)
             {
@@ -33,9 +31,10 @@ public class SpaceCreator
         }
         return $"{letter}{col + 1}";
     }
-    public static Space[,] SpaceInfo()
+
+    public static List<Space> SpaceInfo(int floorId)
     {
-        string[] plan = planUpload;
+        var txt = planUpload;
         Space[,] space = new Space[rows, cols];
         for (int i = 0; i < rows; i++)
         {
@@ -43,24 +42,18 @@ public class SpaceCreator
             {
                 space[i, j] = new Space();
                 space[i, j].Name = SpaceNominator(i, j);
+                space[i, j].FloorId = floorId;
             }
         }
-        for (int i = 0; i < plan.Length; i++)
+        for (int i = 0; i < rows; i++)
         {
-            string line = plan[i];
-            for (int j = 0; j < line.Length; j++)
+            string line = txt[i];
+            for (int j = 0; j < cols; j++)
             {
                 space[i, j].Type = line[j];
             }
         }
-        return space;
+        List<Space> flattenedSpaces = space.Cast<Space>().ToList();
+        return flattenedSpaces;
     }
-
-    //private static void UploadSpaces()
-    //{
-    //    var spaceRepo = new SpaceRepository(new ApplicationDbContext());
-    //    if (c == 'C' || c == 'M')
-    //    {
-    //    }
-    //}
 }

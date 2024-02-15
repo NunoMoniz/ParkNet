@@ -14,13 +14,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Vehicle[0].LicensePlate)
+                Matrícula
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Vehicle[0].Type)
+                Tipo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Vehicle[0].User)
+                Usuário
             </th>
             <th></th>
         </tr>
@@ -35,7 +35,7 @@
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
+                @Html.DisplayFor(modelItem => item.User.UserName)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

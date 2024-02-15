@@ -1,5 +1,7 @@
-﻿namespace ParkNet.App.Pages.Parks.Floors;
+﻿using ParkNet.App.Data.Entities.Parks;
 
+namespace ParkNet.App.Pages.Parks.Floors;
+[Authorize]
 public class CreateModel : PageModel
 {
     private readonly ParkNet.App.Data.ApplicationDbContext _context;
@@ -11,12 +13,14 @@ public class CreateModel : PageModel
 
     public IActionResult OnGet()
     {
-    ViewData["ParkId"] = new SelectList(_context.Parks, "Id", "Name");
+        ViewData["ParkId"] = new SelectList(_context.Parks, "Id", "Name");
         return Page();
     }
 
     [BindProperty]
     public Floor Floor { get; set; } = default!;
+    [BindProperty]
+    public string UserInput { get; set; }
 
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync()
@@ -26,21 +30,26 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        if (_context.Floors.Any(f => f.Name == Floor.Name && f.ParkId == Floor.ParkId))
-        {
-            ModelState.AddModelError(string.Empty, "Já existe um andar com esse nome no parque.");
-            ViewData["ParkId"] = new SelectList(_context.Parks, "Id", "Name");
-            return Page();
-        }
+        //if (_context.Floors.Any(f => f.Name == Floor.Name && f.ParkId == Floor.ParkId))
+        //{
+        //    ModelState.AddModelError(string.Empty, "Já existe um andar com esse nome no parque.");
+        //    ViewData["ParkId"] = new SelectList(_context.Parks, "Id", "Name");
+        //    return Page();
+        //}
 
-        //string[] planUpload = SpaceCreator.GetPlanUpload();
-        //Space[,] space = SpaceCreator.SpaceInfo();
+        SpaceCreator.planUpload = UserInput.Split("\n");
+        List<Space> spaces = SpaceCreator.SpaceInfo(Floor.Id);
+        
+        // Adding all spaces at once
+        _context.Spaces.AddRange(spaces);
 
-
-
+        // Adding the floor
         _context.Floors.Add(Floor);
+
+        // Saving changes to the database
         await _context.SaveChangesAsync();
 
         return RedirectToPage("./Index");
     }
 }
+

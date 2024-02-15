@@ -1,5 +1,5 @@
 ﻿namespace ParkNet.App.Pages.Parks.Spaces;
-
+[Authorize]
 public class CreateModel : PageModel
 {
     private readonly ParkNet.App.Data.ApplicationDbContext _context;
@@ -17,10 +17,9 @@ public class CreateModel : PageModel
 
     [BindProperty]
     public Space Space { get; set; } = default!;
-    public string FileContent { get; set; }
 
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-    public async Task<IActionResult> OnPostAsync(IFormFile file)
+    public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid)
         {
@@ -34,49 +33,8 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        if (file != null && file.Length > 0)
-        {
-            using (var reader = new StreamReader(file.OpenReadStream()))
-            {
-                //var fileContent = await reader.ReadToEndAsync();
-                FileContent = await reader.ReadToEndAsync();
-            }
-        }
-        
-        SpaceCreator.planUpload = FileContent.Split("\n");
-        //string[] planUpload = SpaceCreator.GetPlanUpload();
-        Space[,] space = SpaceCreator.SpaceInfo();
+        await _context.SaveChangesAsync();
 
-        //List<Space> spacesToAdd = new List<Space>();
-        //// Add spaces to the collection
-        //foreach (var item in space)
-        //{
-        //    spacesToAdd.Add(item);
-        //}
-        //// Add all spaces to the context
-        //_context.Spaces.AddRange(spacesToAdd);
-        //// Save changes to the database
-        //await _context.SaveChangesAsync();
-
-        foreach (var item in space)
-        {
-            _context.Spaces.Add(item);
-            await _context.SaveChangesAsync();
-        }
-
-        return RedirectToPage("Index");
+        return RedirectToPage("./Index");
     }
-    //public async Task<IActionResult> OnPostAsync()
-    //{
-    //    if (!ModelState.IsValid)
-    //    {
-    //        return Page();
-    //    }
-
-    //    _context.Spaces.Add(Space);
-    //    await _context.SaveChangesAsync();
-
-    //    return RedirectToPage("./Index");
-    //}
 }
-
