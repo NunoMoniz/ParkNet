@@ -11,9 +11,9 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post" enctype="multipart/form-data">
+        <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            @* <div class="form-group">
                 <label asp-for="Space.Name" class="control-label"></label>
                 <input asp-for="Space.Name" class="form-control" />
                 <span asp-validation-for="Space.Name" class="text-danger"></span>
@@ -26,7 +26,14 @@
             <div class="form-group">
                 <label asp-for="Space.FloorId" class="control-label"></label>
                 <select asp-for="Space.FloorId" class="form-control" asp-items="ViewBag.FloorId"></select>
+            </div> *@
+            @*             <form method="post">
+            <div>
+            <label asp-for="UserInput">Escreva aqui a planta do parque:</label>
+            <textarea asp-for="UserInput" rows="4" cols="50"></textarea>
             </div>
+            <button type="submit">Submit</button>
+            </form> *@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

@@ -12,8 +12,8 @@ using ParkNet.App.Data;
 namespace ParkNet.App.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240213225531_Role")]
-    partial class Role
+    [Migration("20240217132843_createDb")]
+    partial class createDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

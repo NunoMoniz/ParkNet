@@ -2,7 +2,7 @@
 
 public class SpaceCreator
 {
-    public static string[] planUpload = new string[] { };
+    public static string[] planUpload = File.ReadAllLines("C:\\Restart10\\teste2.txt");
     public static readonly int rows = planUpload.Length;
     public static readonly int cols = ColsCounter();
     private static int ColsCounter()
@@ -34,7 +34,6 @@ public class SpaceCreator
 
     public static List<Space> SpaceInfo(int floorId)
     {
-        var txt = planUpload;
         Space[,] space = new Space[rows, cols];
         for (int i = 0; i < rows; i++)
         {
@@ -45,15 +44,14 @@ public class SpaceCreator
                 space[i, j].FloorId = floorId;
             }
         }
-        for (int i = 0; i < rows; i++)
-        {
-            string line = txt[i];
-            for (int j = 0; j < cols; j++)
-            {
-                space[i, j].Type = line[j];
-            }
-        }
-        List<Space> flattenedSpaces = space.Cast<Space>().ToList();
-        return flattenedSpaces;
+        //for (int i = 0; i < rows; i++)
+        //{
+        //    string line = planUpload[i];
+        //    for (int j = 0; j < cols; j++)
+        //    {
+        //        space[i, j].Type = line[j];
+        //    }
+        //}
+        return space.Cast<Space>().ToList();
     }
 }
