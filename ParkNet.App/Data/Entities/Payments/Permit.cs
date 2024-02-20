@@ -8,13 +8,7 @@ public class Permit
     [Required]
     public DateOnly PermitAccess { get; set; }
     [Required]
-    public DateOnly PermitExpiry
-    {
-        get
-        {
-            return PermitAccess.AddMonths(Name);
-        }
-    }
+    public DateOnly PermitExpiry { get; set; }
     public int VehicleId { get; set; }
     public Vehicle Vehicle { get; set; }
     public int SpaceId { get; set; }

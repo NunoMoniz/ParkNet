@@ -20,6 +20,8 @@ builder.Services.AddScoped<PermitRepository>();
 builder.Services.AddScoped<TicketRepository>();
 builder.Services.AddScoped<TransactionRepository>();
 builder.Services.AddScoped<VehicleRepository>();
+builder.Services.AddScoped<DocumentRepository>();
+
 
 var app = builder.Build();
 

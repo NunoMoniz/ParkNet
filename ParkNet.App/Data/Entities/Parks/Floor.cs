@@ -7,4 +7,5 @@ public class Floor
     public int Name { get; set; }
     public int ParkId { get; set; }
     public Park Park { get; set; }
+    public ICollection<Space> Spaces { get; set; }
 }

@@ -64,6 +64,36 @@ namespace ParkNet.App.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TariffPermits",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Monthly = table.Column<double>(type: "float", nullable: false),
+                    Quarterly = table.Column<double>(type: "float", nullable: false),
+                    Semiannual = table.Column<double>(type: "float", nullable: false),
+                    Yearly = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TariffPermits", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TariffTickets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstHour15min = table.Column<double>(type: "float", nullable: false),
+                    SecondAndNextHours = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TariffTickets", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -170,6 +200,26 @@ namespace ParkNet.App.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Documents",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Number = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Documents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Documents_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Transactions",
                 columns: table => new
                 {
@@ -257,6 +307,7 @@ namespace ParkNet.App.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<int>(type: "int", nullable: false),
                     PermitAccess = table.Column<DateOnly>(type: "date", nullable: false),
+                    PermitExpiry = table.Column<DateOnly>(type: "date", nullable: false),
                     VehicleId = table.Column<int>(type: "int", nullable: false),
                     SpaceId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -345,6 +396,11 @@ namespace ParkNet.App.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Documents_UserId",
+                table: "Documents",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Floors_ParkId",
                 table: "Floors",
                 column: "ParkId");
@@ -404,7 +460,16 @@ namespace ParkNet.App.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Documents");
+
+            migrationBuilder.DropTable(
                 name: "Permits");
+
+            migrationBuilder.DropTable(
+                name: "TariffPermits");
+
+            migrationBuilder.DropTable(
+                name: "TariffTickets");
 
             migrationBuilder.DropTable(
                 name: "Tickets");

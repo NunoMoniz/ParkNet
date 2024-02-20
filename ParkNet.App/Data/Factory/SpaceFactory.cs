@@ -1,22 +1,8 @@
 ﻿namespace ParkNet.App.Data.Creators;
 
-public class SpaceCreator
+public class SpaceFactory
 {
-    public static string[] planUpload = File.ReadAllLines("C:\\Restart10\\teste2.txt");
-    public static readonly int rows = planUpload.Length;
-    public static readonly int cols = ColsCounter();
-    private static int ColsCounter()
-    {
-        int cols = 0;
-        foreach (string line in planUpload)
-        {
-            if (line.Length > cols)
-            {
-                cols = line.Length;
-            }
-        }
-        return cols;
-    }
+    
     private static string SpaceNominator(int row, int col)
     {
         string letter = "";
@@ -34,20 +20,20 @@ public class SpaceCreator
 
     public static List<Space> SpaceInfo(int floorId)
     {
-        Space[,] space = new Space[rows, cols];
-        for (int i = 0; i < rows; i++)
+        Space[,] space = new Space[Rows(), MaxCols()];
+        for (int i = 0; i < Rows(); i++)
         {
-            for (int j = 0; j < cols; j++)
+            for (int j = 0; j < MaxCols(); j++)
             {
                 space[i, j] = new Space();
                 space[i, j].Name = SpaceNominator(i, j);
                 space[i, j].FloorId = floorId;
             }
         }
-        //for (int i = 0; i < rows; i++)
+        //for (int i = 0; i < Rows(); i++)
         //{
-        //    string line = planUpload[i];
-        //    for (int j = 0; j < cols; j++)
+        //    string line = lines[i];
+        //    for (int j = 0; j < Cols(); j++)
         //    {
         //        space[i, j].Type = line[j];
         //    }
