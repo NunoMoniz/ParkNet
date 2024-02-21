@@ -17,8 +17,7 @@ public class CreateModel : PageModel
 
     [BindProperty]
     public Floor Floors { get; set; } = default!;
-    [BindProperty]
-    public string Input { get; set; }
+
 
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync()
@@ -28,18 +27,6 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        foreach (char c in Input)
-        {
-            Console.WriteLine((int)c);
-            if (c != 'C' && c != 'M' && c != ' ' && c != '\r' && c != '\n')
-            {
-                ModelState.AddModelError(string.Empty, "A planta do parque apenas permite M, C, espaços e linhas.");
-                ViewData["FloorId"] = new SelectList(_context.Floors, "Id", "Name");
-                return Page();
-            }
-        }
-
-        ParkFactory.Plan(nput);
 
         _context.Floors.Add(Floors);
 

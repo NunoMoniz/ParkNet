@@ -14,25 +14,19 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 @*             <div class="form-group">
-            <label asp-for="Space.Name" class="control-label"></label>
-            <input asp-for="Space.Name" class="form-control" />
-            <span asp-validation-for="Space.Name" class="text-danger"></span>
+                <label asp-for="Space.Name" class="control-label"></label>
+                <input asp-for="Space.Name" class="form-control" />
+                <span asp-validation-for="Space.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-            <label asp-for="Space.Type" class="control-label"></label>
-            <input asp-for="Space.Type" class="form-control" />
-            <span asp-validation-for="Space.Type" class="text-danger"></span>
+                <label asp-for="Space.Type" class="control-label"></label>
+                <input asp-for="Space.Type" class="form-control" />
+                <span asp-validation-for="Space.Type" class="text-danger"></span>
             </div> *@
-            <div>
-                <label asp-for="Input">Escreva aqui a planta do piso:</label>
-                <textarea asp-for="Input" rows="4" cols="50"></textarea>
-            </div>
-            <button type="submit">Submit</button>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
         </form>
-        @*             <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary" />
-        </div> *@
-        @*         </form> *@
     </div>
 </div>
 <div>

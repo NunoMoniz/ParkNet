@@ -232,7 +232,7 @@ namespace ParkNet.App.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Name")
+                    b.Property<int>("Number")
                         .HasColumnType("int");
 
                     b.Property<int>("ParkId")
@@ -272,6 +272,9 @@ namespace ParkNet.App.Migrations
 
                     b.Property<int>("FloorId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsOccupied")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -530,7 +533,7 @@ namespace ParkNet.App.Migrations
             modelBuilder.Entity("ParkNet.App.Data.Entities.Parks.Space", b =>
                 {
                     b.HasOne("ParkNet.App.Data.Entities.Parks.Floor", "Floor")
-                        .WithMany()
+                        .WithMany("Spaces")
                         .HasForeignKey("FloorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -601,6 +604,11 @@ namespace ParkNet.App.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ParkNet.App.Data.Entities.Parks.Floor", b =>
+                {
+                    b.Navigation("Spaces");
                 });
 
             modelBuilder.Entity("ParkNet.App.Data.Entities.Parks.Park", b =>

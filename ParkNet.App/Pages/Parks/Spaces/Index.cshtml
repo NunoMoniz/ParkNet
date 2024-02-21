@@ -35,7 +35,7 @@
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Floor.Name)
+                    @Html.DisplayFor(modelItem => item.Floor.Number)
             </td>
             <td>
                     <a asp-page="./Details" asp-route-id="@item.Id">Detalhes</a> |

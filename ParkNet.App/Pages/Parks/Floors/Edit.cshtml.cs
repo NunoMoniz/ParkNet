@@ -38,7 +38,7 @@ public class EditModel : PageModel
             return Page();
         }
 
-        if (_context.Floors.Any(f => f.Name == Floor.Name && f.ParkId == Floor.ParkId))
+        if (_context.Floors.Any(f => f.Number == Floor.Number && f.ParkId == Floor.ParkId))
         {
             ModelState.AddModelError(string.Empty, "Já existe um andar com esse nome no parque.");
             ViewData["ParkId"] = new SelectList(_context.Parks, "Id", "Name");

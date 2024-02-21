@@ -1,4 +1,6 @@
-﻿namespace ParkNet.App.Pages.Parks.Floors;
+﻿using System.Numerics;
+
+namespace ParkNet.App.Pages.Parks.Floors;
 [Authorize]
 public class CreateModel : PageModel
 {
@@ -18,7 +20,7 @@ public class CreateModel : PageModel
     [BindProperty]
     public Floor Floor { get; set; } = default!;
     //[BindProperty]
-    //public string UserInput { get; set; }
+    //public string Plan { get; set; }
 
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync()
@@ -28,19 +30,6 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        if (_context.Floors.Any(f => f.Name == Floor.Name && f.ParkId == Floor.ParkId))
-        {
-            ModelState.AddModelError(string.Empty, "Já existe um andar com esse nome no parque.");
-            ViewData["ParkId"] = new SelectList(_context.Parks, "Id", "Name");
-            return Page();
-        }
-
-        //SpaceCreator.planUpload = UserInput.Split("\n");
-        //List<Space> spaces = SpaceCreator.SpaceInfo(Floor.Id);
-        //List<Space> spaces = SpaceCreator.SpaceInfo(1);
-        //_context.Spaces.AddRange(spaces);
-
-        _context.Floors.Add(Floor);
 
         await _context.SaveChangesAsync();
 

@@ -18,17 +18,13 @@
                 <select asp-for="Floor.ParkId" class="form-control" asp-items="ViewBag.ParkId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Floor.Name" class="control-label"></label>
-                <input asp-for="Floor.Name" class="form-control" />
-                <span asp-validation-for="Floor.Name" class="text-danger"></span>
+                <label asp-for="Floor.Number" class="control-label"></label>
+                <input asp-for="Floor.Number" class="form-control" />
+                <span asp-validation-for="Floor.Number" class="text-danger"></span>
             </div>
-            @*             <form method="post">
-            <div>
-            <label asp-for="UserInput">Escreva aqui a planta do parque:</label>
-            <textarea asp-for="UserInput" rows="4" cols="50"></textarea>
-            </div>
-            <button type="submit">Submit</button>
-            </form> *@
+            <form method="post">
+                <button type="submit">Submit</button>
+            </form>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
