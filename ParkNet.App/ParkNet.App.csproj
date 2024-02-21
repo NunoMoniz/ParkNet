@@ -22,8 +22,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Pages\Parks\Tariffs\" />
-    <Folder Include="Pages\Users\Transactions\" />
   </ItemGroup>
 
 </Project>

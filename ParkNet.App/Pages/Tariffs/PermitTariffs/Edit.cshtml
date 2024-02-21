@@ -1,0 +1,50 @@
+﻿@page
+@model ParkNet.App.Pages.Tariffs.PermitTariffs.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>PermitTariff</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PermitTariff.Id" />
+            <div class="form-group">
+                <label asp-for="PermitTariff.Monthly" class="control-label"></label>
+                <input asp-for="PermitTariff.Monthly" class="form-control" />
+                <span asp-validation-for="PermitTariff.Monthly" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PermitTariff.Quarterly" class="control-label"></label>
+                <input asp-for="PermitTariff.Quarterly" class="form-control" />
+                <span asp-validation-for="PermitTariff.Quarterly" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PermitTariff.Semiannual" class="control-label"></label>
+                <input asp-for="PermitTariff.Semiannual" class="form-control" />
+                <span asp-validation-for="PermitTariff.Semiannual" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PermitTariff.Yearly" class="control-label"></label>
+                <input asp-for="PermitTariff.Yearly" class="form-control" />
+                <span asp-validation-for="PermitTariff.Yearly" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

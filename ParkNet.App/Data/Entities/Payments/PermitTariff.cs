@@ -1,6 +1,6 @@
 ﻿namespace ParkNet.App.Data.Entities.Payments;
 
-public class TariffPermit
+public class PermitTariff
 {
     public int Id { get; set; }
     [Required]

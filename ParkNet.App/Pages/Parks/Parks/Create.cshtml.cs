@@ -1,5 +1,6 @@
 ﻿namespace ParkNet.App.Pages.Parks.Parks;
 
+[Authorize]
 public class CreateModel : PageModel
 {
     private readonly ParkNet.App.Data.ApplicationDbContext _context;
@@ -28,12 +29,12 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        //if (_context.Parks.Any(p => p.Name == Park.Name))
-        //{
-        //    ModelState.AddModelError(string.Empty, "Já existe um parque com o mesmo nome.");
-        //    ViewData["ParkId"] = new SelectList(_context.Parks, "Id", "Name");
-        //    return Page();
-        //}
+        if (_context.Parks.Any(p => p.Name == Park.Name))
+        {
+            ModelState.AddModelError(string.Empty, "Já existe um parque com o mesmo nome.");
+            ViewData["ParkId"] = new SelectList(_context.Parks, "Id", "Name");
+            return Page();
+        }
 
         foreach (char c in Plan)
         {

@@ -1,0 +1,42 @@
+﻿@page
+@model ParkNet.App.Pages.Tariffs.TicketTariffs.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketTariff[0].FirstHour15min)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketTariff[0].SecondAndNextHours)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.TicketTariff) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstHour15min)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SecondAndNextHours)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,17 +1,16 @@
-﻿namespace ParkNet.App.Pages
+﻿namespace ParkNet.App.Pages;
+
+[Authorize]
+public class PrivacyModel : PageModel
 {
-    public class PrivacyModel : PageModel
+    private readonly ILogger<PrivacyModel> _logger;
+
+    public PrivacyModel(ILogger<PrivacyModel> logger)
     {
-        private readonly ILogger<PrivacyModel> _logger;
-
-        public PrivacyModel(ILogger<PrivacyModel> logger)
-        {
-            _logger = logger;
-        }
-
-        public void OnGet()
-        {
-        }
+        _logger = logger;
     }
 
+    public void OnGet()
+    {
+    }
 }

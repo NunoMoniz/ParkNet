@@ -1,5 +1,6 @@
 ﻿namespace ParkNet.App.Pages.Users.Vehicles;
 
+[Authorize]
 public class CreateModel : PageModel
 {
     private readonly ParkNet.App.Data.ApplicationDbContext _context;
@@ -26,7 +27,13 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        Vehicle.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (_context.Vehicles.Any(v => v.LicensePlate == Vehicle.LicensePlate))
+        {
+            ModelState.AddModelError(string.Empty, "Essa matrícula já está registada.");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "UserName");
+            return Page();
+        }
+
         _context.Vehicles.Add(Vehicle);
         await _context.SaveChangesAsync();
 

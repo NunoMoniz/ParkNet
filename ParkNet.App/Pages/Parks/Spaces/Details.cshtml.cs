@@ -1,35 +1,33 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿namespace ParkNet.App.Pages.Parks.Spaces;
 
-namespace ParkNet.App.Pages.Parks.Spaces
+[Authorize]
+public class DetailsModel : PageModel
 {
-    public class DetailsModel : PageModel
+    private readonly ParkNet.App.Data.ApplicationDbContext _context;
+
+    public DetailsModel(ParkNet.App.Data.ApplicationDbContext context)
     {
-        private readonly ParkNet.App.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public DetailsModel(ParkNet.App.Data.ApplicationDbContext context)
+    public Space Space { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        public Space Space { get; set; } = default!;
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        var space = await _context.Spaces.FirstOrDefaultAsync(m => m.Id == id);
+        if (space == null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var space = await _context.Spaces.FirstOrDefaultAsync(m => m.Id == id);
-            if (space == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                Space = space;
-            }
-            return Page();
+            return NotFound();
         }
+        else
+        {
+            Space = space;
+        }
+        return Page();
     }
 }

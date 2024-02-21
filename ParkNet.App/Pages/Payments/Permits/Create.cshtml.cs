@@ -1,5 +1,6 @@
 ﻿namespace ParkNet.App.Pages.Payments.Permits;
 
+[Authorize]
 public class CreateModel : PageModel
 {
     private readonly ParkNet.App.Data.ApplicationDbContext _context;

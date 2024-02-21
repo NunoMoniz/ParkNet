@@ -1,0 +1,54 @@
+﻿@page
+@model ParkNet.App.Pages.Tariffs.PermitTariffs.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PermitTariff[0].Monthly)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PermitTariff[0].Quarterly)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PermitTariff[0].Semiannual)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PermitTariff[0].Yearly)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.PermitTariff) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Monthly)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quarterly)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Semiannual)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yearly)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

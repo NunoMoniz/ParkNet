@@ -1,5 +1,6 @@
 ﻿namespace ParkNet.App.Pages.Parks.Floors;
 
+[Authorize]
 public class EditModel : PageModel
 {
     private readonly ParkNet.App.Data.ApplicationDbContext _context;

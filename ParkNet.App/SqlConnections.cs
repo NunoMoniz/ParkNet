@@ -1,6 +1,10 @@
 ﻿using Microsoft.Data.SqlClient;
 
 namespace ParkNet.App;
+
+// Esta classe foi uma tentativa de contornar o erro na falta de FK,
+// quando o user adiciona um parque e os seus respetivos andares e lugares de uma só vez,
+// ou seja, apenas na página Create do namespace ParkNet.App.Pages.Parks.Parks; 
 class SqlConnections
 {
     public static void AddIdToTable(string table)

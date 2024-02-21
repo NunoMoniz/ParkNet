@@ -5,26 +5,26 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Adicionar</h1>
 
-<h4>Vehicle</h4>
+<h4>Veículo</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post" onsubmit="return validateVehicleType();">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Vehicle.LicensePlate" class="control-label"></label>
+                <label asp-for="Vehicle.LicensePlate" class="control-label">Matrícula</label>
                 <input asp-for="Vehicle.LicensePlate" class="form-control" />
                 <span asp-validation-for="Vehicle.LicensePlate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Vehicle.Type" class="control-label"></label>
+                <label asp-for="Vehicle.Type" class="control-label">TIPO (C para carro, M para mota)</label>
                 <input asp-for="Vehicle.Type" class="form-control" />
                 <span asp-validation-for="Vehicle.Type" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Vehicle.UserId" class="control-label"></label>
+                <label asp-for="Vehicle.UserId" class="control-label">Usuário</label>
                 <select asp-for="Vehicle.UserId" class="form-control" asp-items="ViewBag.UserId"></select>
             </div>
             <div class="form-group">

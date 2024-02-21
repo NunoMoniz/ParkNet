@@ -28,19 +28,25 @@
                         @if (User.Identity.IsAuthenticated /*&& User.IsInRole("Admin")*/)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Parks/Parks/Index">Parks</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Payments/Tickets/Index">ESTACIONAR bilhete</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Parks/Floors/Index">Floors</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Payments/Permits/Index">ESTACIONAR avença</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Parks/Spaces/Index">Spaces</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Parks/Parks/Index">Parques</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Users/Vehicles/Index">Vehicles</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Parks/Floors/Index">Andares</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Payments/Permits/Index">Permits</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Parks/Spaces/Index">Lugares</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Users/Vehicles/Index">Veículos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Users/Transactions/Index">Transações</a>
                             </li>
                         }
                     </ul>

@@ -1,0 +1,43 @@
+﻿@page
+@model ParkNet.App.Pages.Tariffs.PermitTariffs.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>PermitTariff</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PermitTariff.Monthly)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PermitTariff.Monthly)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PermitTariff.Quarterly)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PermitTariff.Quarterly)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PermitTariff.Semiannual)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PermitTariff.Semiannual)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PermitTariff.Yearly)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PermitTariff.Yearly)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.PermitTariff.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

@@ -1,55 +1,53 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿namespace ParkNet.App.Pages.Parks.Spaces;
 
-namespace ParkNet.App.Pages.Parks.Spaces
+[Authorize]
+public class DeleteModel : PageModel
 {
-    public class DeleteModel : PageModel
+    private readonly ParkNet.App.Data.ApplicationDbContext _context;
+
+    public DeleteModel(ParkNet.App.Data.ApplicationDbContext context)
     {
-        private readonly ParkNet.App.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public DeleteModel(ParkNet.App.Data.ApplicationDbContext context)
+    [BindProperty]
+    public Space Space { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        [BindProperty]
-        public Space Space { get; set; } = default!;
+        var space = await _context.Spaces.FirstOrDefaultAsync(m => m.Id == id);
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        if (space == null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            return NotFound();
+        }
+        else
+        {
+            Space = space;
+        }
+        return Page();
+    }
 
-            var space = await _context.Spaces.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (space == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                Space = space;
-            }
-            return Page();
+    public async Task<IActionResult> OnPostAsync(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        var space = await _context.Spaces.FindAsync(id);
+        if (space != null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var space = await _context.Spaces.FindAsync(id);
-            if (space != null)
-            {
-                Space = space;
-                _context.Spaces.Remove(Space);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
+            Space = space;
+            _context.Spaces.Remove(Space);
+            await _context.SaveChangesAsync();
         }
+
+        return RedirectToPage("./Index");
     }
 }

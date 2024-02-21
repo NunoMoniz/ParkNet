@@ -1,0 +1,38 @@
+﻿@page
+@model ParkNet.App.Pages.Users.Transactions.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Carregar saldo</h1>
+
+<h4>Transações</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Transaction.InsAndOuts" class="control-label">Qual o valor a adicionar?</label>
+                <input asp-for="Transaction.InsAndOuts" class="form-control" />
+                <span asp-validation-for="Transaction.InsAndOuts" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Transaction.UserId" class="control-label">Usuário</label>
+                <select asp-for="Transaction.UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -4,7 +4,7 @@ public class Transaction
 {
     public int Id { get; set; }
     [Required]
-    public double Transactions { get; set; }
+    public double InsAndOuts { get; set; }
     public string UserId { get; set; }
     public IdentityUser User { get; set; }
 }

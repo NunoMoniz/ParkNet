@@ -1,45 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using ParkNet.App.Data;
-using ParkNet.App.Data.Entities.Users;
+﻿namespace ParkNet.App.Pages.Users.Documents;
 
-namespace ParkNet.App.Pages.Users.Documents
+[Authorize]
+public class CreateModel : PageModel
 {
-    public class CreateModel : PageModel
+    private readonly ParkNet.App.Data.ApplicationDbContext _context;
+
+    public CreateModel(ParkNet.App.Data.ApplicationDbContext context)
     {
-        private readonly ParkNet.App.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public CreateModel(ParkNet.App.Data.ApplicationDbContext context)
-        {
-            _context = context;
-        }
+    public IActionResult OnGet()
+    {
+    ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+        return Page();
+    }
 
-        public IActionResult OnGet()
+    [BindProperty]
+    public Document Document { get; set; } = default!;
+
+    // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid)
         {
-        ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 
-        [BindProperty]
-        public Document Document { get; set; } = default!;
+        _context.Documents.Add(Document);
+        await _context.SaveChangesAsync();
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            _context.Documents.Add(Document);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
-        }
+        return RedirectToPage("./Index");
     }
 }

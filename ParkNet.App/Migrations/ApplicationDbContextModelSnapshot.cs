@@ -323,7 +323,7 @@ namespace ParkNet.App.Migrations
                     b.ToTable("Permits");
                 });
 
-            modelBuilder.Entity("ParkNet.App.Data.Entities.Payments.TariffPermit", b =>
+            modelBuilder.Entity("ParkNet.App.Data.Entities.Payments.PermitTariff", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -348,7 +348,36 @@ namespace ParkNet.App.Migrations
                     b.ToTable("TariffPermits");
                 });
 
-            modelBuilder.Entity("ParkNet.App.Data.Entities.Payments.TariffTicket", b =>
+            modelBuilder.Entity("ParkNet.App.Data.Entities.Payments.Ticket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("EntryDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ExitDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SpaceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VehicleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SpaceId");
+
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("ParkNet.App.Data.Entities.Payments.TicketTariff", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -365,35 +394,6 @@ namespace ParkNet.App.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TariffTickets");
-                });
-
-            modelBuilder.Entity("ParkNet.App.Data.Entities.Payments.Ticket", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("EntryDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExitDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("SpaceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SpaceId");
-
-                    b.HasIndex("VehicleId");
-
-                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("ParkNet.App.Data.Entities.Users.Document", b =>
@@ -429,7 +429,7 @@ namespace ParkNet.App.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("Transactions")
+                    b.Property<double>("InsAndOuts")
                         .HasColumnType("float");
 
                     b.Property<string>("UserId")

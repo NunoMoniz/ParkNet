@@ -1,63 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using ParkNet.App.Data;
-using ParkNet.App.Data.Entities.Users;
+﻿namespace ParkNet.App.Pages.Users.Documents;
 
-namespace ParkNet.App.Pages.Users.Documents
+[Authorize]
+public class DeleteModel : PageModel
 {
-    public class DeleteModel : PageModel
+    private readonly ParkNet.App.Data.ApplicationDbContext _context;
+
+    public DeleteModel(ParkNet.App.Data.ApplicationDbContext context)
     {
-        private readonly ParkNet.App.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public DeleteModel(ParkNet.App.Data.ApplicationDbContext context)
+    [BindProperty]
+    public Document Document { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        [BindProperty]
-        public Document Document { get; set; } = default!;
+        var document = await _context.Documents.FirstOrDefaultAsync(m => m.Id == id);
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        if (document == null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            return NotFound();
+        }
+        else
+        {
+            Document = document;
+        }
+        return Page();
+    }
 
-            var document = await _context.Documents.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (document == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                Document = document;
-            }
-            return Page();
+    public async Task<IActionResult> OnPostAsync(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        var document = await _context.Documents.FindAsync(id);
+        if (document != null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var document = await _context.Documents.FindAsync(id);
-            if (document != null)
-            {
-                Document = document;
-                _context.Documents.Remove(Document);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
+            Document = document;
+            _context.Documents.Remove(Document);
+            await _context.SaveChangesAsync();
         }
+
+        return RedirectToPage("./Index");
     }
 }

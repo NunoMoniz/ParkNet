@@ -1,5 +1,6 @@
 ﻿namespace ParkNet.App.Pages.Payments.Tickets;
 
+[Authorize]
 public class IndexModel : PageModel
 {
     private readonly ParkNet.App.Data.ApplicationDbContext _context;

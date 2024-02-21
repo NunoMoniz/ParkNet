@@ -1,4 +1,5 @@
 ﻿namespace ParkNet.App.Pages.Parks.Spaces;
+
 [Authorize]
 public class CreateModel : PageModel
 {

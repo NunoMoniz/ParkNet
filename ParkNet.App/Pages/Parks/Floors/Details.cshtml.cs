@@ -1,6 +1,6 @@
 ﻿namespace ParkNet.App.Pages.Parks.Floors;
-[Authorize]
 
+[Authorize]
 public class DetailsModel : PageModel
 {
     private readonly ParkNet.App.Data.ApplicationDbContext _context;

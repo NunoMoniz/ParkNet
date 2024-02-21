@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ParkNet.App.Migrations
 {
     /// <inheritdoc />
-    public partial class createdb : Migration
+    public partial class CreatingDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -225,7 +225,7 @@ namespace ParkNet.App.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Transactions = table.Column<double>(type: "float", nullable: false),
+                    InsAndOuts = table.Column<double>(type: "float", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>

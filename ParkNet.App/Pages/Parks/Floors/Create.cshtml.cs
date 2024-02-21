@@ -1,6 +1,5 @@
-﻿using System.Numerics;
+﻿namespace ParkNet.App.Pages.Parks.Floors;
 
-namespace ParkNet.App.Pages.Parks.Floors;
 [Authorize]
 public class CreateModel : PageModel
 {
