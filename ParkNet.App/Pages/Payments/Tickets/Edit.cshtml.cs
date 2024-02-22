@@ -1,4 +1,6 @@
-﻿namespace ParkNet.App.Pages.Payments.Tickets;
+﻿using ParkNet.App.Data.Entities.Parks;
+
+namespace ParkNet.App.Pages.Payments.Tickets;
 
 [Authorize]
 public class EditModel : PageModel
@@ -20,14 +22,18 @@ public class EditModel : PageModel
             return NotFound();
         }
 
-        var ticket =  await _context.Tickets.FirstOrDefaultAsync(m => m.Id == id);
+        var ticket = await _context.Tickets.FirstOrDefaultAsync(m => m.Id == id);
+
         if (ticket == null)
         {
             return NotFound();
         }
         Ticket = ticket;
-       ViewData["SpaceId"] = new SelectList(_context.Spaces, "Id", "Name");
-       ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate");
+        ViewData["SpaceId"] = new SelectList(_context.Spaces, "Id", "Name");
+        ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate");
+
+        Ticket.ExitDateTime = DateTime.Now;
+
         return Page();
     }
 
@@ -44,6 +50,7 @@ public class EditModel : PageModel
 
         try
         {
+            Helper.SetIsNotOccupied(_context, Ticket.SpaceId);
             await _context.SaveChangesAsync();
         }
         catch (DbUpdateConcurrencyException)

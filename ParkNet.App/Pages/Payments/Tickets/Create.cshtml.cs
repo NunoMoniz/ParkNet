@@ -15,7 +15,7 @@ public class CreateModel : PageModel
         ViewData["SpaceId"] = new SelectList(_context.Spaces, "Id", "Name");
         ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate");
 
-        Ticket = new Ticket
+        Ticket = new Ticket()
         {
             EntryDateTime = DateTime.Now
         };
@@ -32,6 +32,20 @@ public class CreateModel : PageModel
         if (!ModelState.IsValid)
         {
             return Page();
+        }
+
+        bool IsOccupied = Helper.CheckIfIsOccupied(_context, Ticket.SpaceId);
+        if (IsOccupied == true)
+        {
+            ModelState.AddModelError("Ticket.SpaceId", "A vaga selecionada já está ocupada.");
+            ViewData["SpaceId"] = new SelectList(_context.Spaces, "Id", "Name");
+            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate");
+            return Page();
+        }
+
+        if (Ticket.ExitDateTime == null)
+        {
+            Helper.SetIsOccupied(_context, Ticket.SpaceId);
         }
 
         _context.Tickets.Add(Ticket);

@@ -1,4 +1,6 @@
-﻿namespace ParkNet.App.Pages.Payments.Permits;
+﻿using ParkNet.App.Data.Entities.Payments;
+
+namespace ParkNet.App.Pages.Payments.Permits;
 
 [Authorize]
 public class CreateModel : PageModel
@@ -27,6 +29,8 @@ public class CreateModel : PageModel
         {
             return Page();
         }
+
+        Permit.PermitExpiry = Helper.CalculatePermitExpiry(Permit.Name, Permit.PermitAccess);
 
         _context.Permits.Add(Permit);
         await _context.SaveChangesAsync();

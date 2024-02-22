@@ -5,9 +5,9 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Sair</h1>
 
-<h4>Ticket</h4>
+<h4></h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,12 +15,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Ticket.Id" />
             <div class="form-group">
-                <label asp-for="Ticket.EntryDateTime" class="control-label"></label>
+                <label asp-for="Ticket.EntryDateTime" class="control-label">Entrou a esta hora:</label>
                 <input asp-for="Ticket.EntryDateTime" class="form-control" />
                 <span asp-validation-for="Ticket.EntryDateTime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Ticket.ExitDateTime" class="control-label"></label>
+                <label asp-for="Ticket.ExitDateTime" class="control-label">Está a sair agora:</label>
                 <input asp-for="Ticket.ExitDateTime" class="form-control" />
                 <span asp-validation-for="Ticket.ExitDateTime" class="text-danger"></span>
             </div>
