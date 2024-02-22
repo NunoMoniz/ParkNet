@@ -28,4 +28,19 @@ public class Helper
     {
         return PermitAccess.AddMonths(name);
     }
+
+    public static bool IsTransactionsSumPositive(int vehicleId, double amount)
+    {
+        // get all transactions for the user
+        // sum the amounts
+        // return true if the sum is positive
+
+        // 
+
+        if (amount > 0)
+        {
+            return true;
+        }
+        return false;
+    }
 }

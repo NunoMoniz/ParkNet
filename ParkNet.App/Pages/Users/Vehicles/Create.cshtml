@@ -19,7 +19,7 @@
                 <span asp-validation-for="Vehicle.LicensePlate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Vehicle.Type" class="control-label">TIPO (C para carro, M para mota)</label>
+                <label asp-for="Vehicle.Type" class="control-label">Tipo (C para carro, M para mota)</label>
                 <input asp-for="Vehicle.Type" class="form-control" />
                 <span asp-validation-for="Vehicle.Type" class="text-danger"></span>
             </div>
@@ -39,7 +39,7 @@
 </div>
 
 @section Scripts {
-    <script>
+@*     <script>
         function validateVehicleType() {
             var selectedType = document.getElementById("Vehicle_Type").value;
             if (selectedType != 'C' && selectedType != 'M') {
@@ -48,7 +48,7 @@
             }
             return true;
         }
-    </script>
+    </script> *@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }

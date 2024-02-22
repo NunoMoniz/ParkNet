@@ -34,6 +34,13 @@ public class CreateModel : PageModel
             return Page();
         }
 
+        if (Vehicle.Type != 'C' && Vehicle.Type != 'M')
+        {
+            ModelState.AddModelError(string.Empty, "Tipo de veículo inválido.");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "UserName");
+            return Page();
+        }
+
         _context.Vehicles.Add(Vehicle);
         await _context.SaveChangesAsync();
 
