@@ -12,8 +12,8 @@ using ParkNet.App.Data;
 namespace ParkNet.App.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240221155557_CreatingDb")]
-    partial class CreatingDb
+    [Migration("20240223141709_CreatingDatabase")]
+    partial class CreatingDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -305,11 +305,11 @@ namespace ParkNet.App.Migrations
                     b.Property<int>("Name")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly>("PermitAccess")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("PermitAccess")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateOnly>("PermitExpiry")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("PermitExpiry")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("SpaceId")
                         .HasColumnType("int");
@@ -362,7 +362,7 @@ namespace ParkNet.App.Migrations
                     b.Property<DateTime>("EntryDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ExitDateTime")
+                    b.Property<DateTime?>("ExitDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("SpaceId")

@@ -5,6 +5,10 @@
     ViewData["Title"] = "Create";
 }
 
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+
 <h1>Estacionamento</h1>
 
 <h4>Nova avença</h4>
@@ -14,26 +18,21 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Permit.Name" class="control-label"></label>
-                <input asp-for="Permit.Name" class="form-control" />
-                <span asp-validation-for="Permit.Name" class="text-danger"></span>
+                <label asp-for="Permit.Months" class="control-label">Indique a duração da avença, em meses: 1, 3, 6 ou 12. </label>
+                <input asp-for="Permit.Months" class="form-control" />
+                <span asp-validation-for="Permit.Months" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Permit.PermitAccess" class="control-label"></label>
+                <label asp-for="Permit.PermitAccess" class="control-label">Data de início</label>
                 <input asp-for="Permit.PermitAccess" class="form-control" />
                 <span asp-validation-for="Permit.PermitAccess" class="text-danger"></span>
             </div>
-@*             <div class="form-group">
-                <label asp-for="Permit.PermitExpiry" class="control-label"></label>
-                <input asp-for="Permit.PermitExpiry" class="form-control" />
-                <span asp-validation-for="Permit.PermitExpiry" class="text-danger"></span>
-            </div> *@
             <div class="form-group">
-                <label asp-for="Permit.VehicleId" class="control-label"></label>
+                <label asp-for="Permit.VehicleId" class="control-label">Matrícula</label>
                 <select asp-for="Permit.VehicleId" class ="form-control" asp-items="ViewBag.VehicleId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Permit.SpaceId" class="control-label"></label>
+                <label asp-for="Permit.SpaceId" class="control-label">Lugar</label>
                 <select asp-for="Permit.SpaceId" class ="form-control" asp-items="ViewBag.SpaceId"></select>
             </div>
             <div class="form-group">

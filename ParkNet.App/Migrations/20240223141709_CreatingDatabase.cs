@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ParkNet.App.Migrations
 {
     /// <inheritdoc />
-    public partial class CreatingDb : Migration
+    public partial class CreatingDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -307,8 +307,8 @@ namespace ParkNet.App.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<int>(type: "int", nullable: false),
-                    PermitAccess = table.Column<DateOnly>(type: "date", nullable: false),
-                    PermitExpiry = table.Column<DateOnly>(type: "date", nullable: false),
+                    PermitAccess = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PermitExpiry = table.Column<DateTime>(type: "datetime2", nullable: false),
                     VehicleId = table.Column<int>(type: "int", nullable: false),
                     SpaceId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -336,7 +336,7 @@ namespace ParkNet.App.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EntryDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ExitDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ExitDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     VehicleId = table.Column<int>(type: "int", nullable: false),
                     SpaceId = table.Column<int>(type: "int", nullable: false)
                 },

@@ -34,10 +34,10 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        bool IsOccupied = Helper.CheckIfIsOccupied(_context, Ticket.SpaceId);
+        bool IsOccupied = Helper.CheckIfItIsOccupied(_context, Ticket.SpaceId);
         if (IsOccupied == true)
         {
-            ModelState.AddModelError("Ticket.SpaceId", "A vaga selecionada já está ocupada.");
+            ModelState.AddModelError("Ticket.SpaceId", "O lugar selecionado já está ocupado.");
             ViewData["SpaceId"] = new SelectList(_context.Spaces, "Id", "Name");
             ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate");
             return Page();
@@ -45,7 +45,7 @@ public class CreateModel : PageModel
 
         if (Ticket.ExitDateTime == null)
         {
-            Helper.SetIsOccupied(_context, Ticket.SpaceId);
+            Helper.SetToOccupied(_context, Ticket.SpaceId);
         }
 
         _context.Tickets.Add(Ticket);

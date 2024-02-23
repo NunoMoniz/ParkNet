@@ -14,7 +14,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Permit[0].Name)
+                @Html.DisplayNameFor(model => model.Permit[0].Months)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Permit[0].PermitAccess)
@@ -35,7 +35,7 @@
 @foreach (var item in Model.Permit) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => item.Months)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PermitAccess)

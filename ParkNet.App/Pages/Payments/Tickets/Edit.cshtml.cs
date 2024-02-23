@@ -1,6 +1,4 @@
-﻿using ParkNet.App.Data.Entities.Parks;
-
-namespace ParkNet.App.Pages.Payments.Tickets;
+﻿namespace ParkNet.App.Pages.Payments.Tickets;
 
 [Authorize]
 public class EditModel : PageModel
@@ -46,11 +44,23 @@ public class EditModel : PageModel
             return Page();
         }
 
+        if (Ticket.ExitDateTime <= Ticket.EntryDateTime)
+        {
+            ModelState.AddModelError("Ticket.ExitDateTime", "A data de saída deve ser posterior à data de entrada.");
+            ViewData["SpaceId"] = new SelectList(_context.Spaces, "Id", "Name");
+            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate");
+            return Page();
+        }
+
+        if (Ticket.ExitDateTime != null)
+        {
+            Helper.SetToFree(_context, Ticket.SpaceId);
+        }
+
         _context.Attach(Ticket).State = EntityState.Modified;
 
         try
         {
-            Helper.SetIsNotOccupied(_context, Ticket.SpaceId);
             await _context.SaveChangesAsync();
         }
         catch (DbUpdateConcurrencyException)

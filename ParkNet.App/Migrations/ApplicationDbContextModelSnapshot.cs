@@ -299,14 +299,14 @@ namespace ParkNet.App.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Name")
+                    b.Property<int>("Months")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly>("PermitAccess")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("PermitAccess")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateOnly>("PermitExpiry")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("PermitExpiry")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("SpaceId")
                         .HasColumnType("int");

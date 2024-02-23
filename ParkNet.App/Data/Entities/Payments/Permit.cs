@@ -4,11 +4,11 @@ public class Permit
 {
     public int Id { get; set; }
     [Required]
-    public int Name { get; set; }
+    public int Months { get; set; }
     [Required]
-    public DateOnly PermitAccess { get; set; }
+    public DateTime PermitAccess { get; set; }
     [Required]
-    public DateOnly PermitExpiry { get; set; }
+    public DateTime PermitExpiry { get; set; }
     public int VehicleId { get; set; }
     public Vehicle Vehicle { get; set; }
     public int SpaceId { get; set; }

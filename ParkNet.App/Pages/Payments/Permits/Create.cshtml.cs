@@ -14,9 +14,16 @@ public class CreateModel : PageModel
 
     public IActionResult OnGet()
     {
-    ViewData["SpaceId"] = new SelectList(_context.Spaces, "Id", "Name");
-    ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate");
+        ViewData["SpaceId"] = new SelectList(_context.Spaces, "Id", "Name");
+        ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate");
+
+        Permit = new Permit()
+        {
+            PermitAccess = DateTime.Now
+        };
+
         return Page();
+
     }
 
     [BindProperty]
@@ -30,7 +37,18 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        Permit.PermitExpiry = Helper.CalculatePermitExpiry(Permit.Name, Permit.PermitAccess);
+        bool IsOccupied = Helper.CheckIfItIsOccupied(_context, Permit.SpaceId);
+        if (IsOccupied == true)
+        {
+            ModelState.AddModelError("Permit.SpaceId", "O lugar selecionado já está ocupado.");
+            ViewData["SpaceId"] = new SelectList(_context.Spaces, "Id", "Name");
+            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate");
+            return Page();
+        }
+
+        Helper.SetToOccupied(_context, Permit.SpaceId);
+
+        Permit.PermitExpiry = Helper.CalculatePermitExpiry(Permit.Months, Permit.PermitAccess);
 
         _context.Permits.Add(Permit);
         await _context.SaveChangesAsync();

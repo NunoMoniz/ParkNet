@@ -12,8 +12,8 @@ using ParkNet.App.Data;
 namespace ParkNet.App.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240221155851_UpdateExitDateTimeToAllowNull")]
-    partial class UpdateExitDateTimeToAllowNull
+    [Migration("20240223144435_UpdatingPermitNameToMonths")]
+    partial class UpdatingPermitNameToMonths
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -302,14 +302,14 @@ namespace ParkNet.App.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Name")
+                    b.Property<int>("Months")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly>("PermitAccess")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("PermitAccess")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateOnly>("PermitExpiry")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("PermitExpiry")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("SpaceId")
                         .HasColumnType("int");
