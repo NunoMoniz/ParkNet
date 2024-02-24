@@ -44,6 +44,7 @@ public class DeleteModel : PageModel
         if (permit != null)
         {
             Permit = permit;
+            Helper.SetToAvailable(_context, permit.SpaceId);
             _context.Permits.Remove(Permit);
             await _context.SaveChangesAsync();
         }

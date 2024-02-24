@@ -25,13 +25,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Ajuda</a>
                         </li>
-                        @if (User.Identity.IsAuthenticated /*&& User.IsInRole("Admin")*/)
+                        @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Payments/Tickets/Index">ESTACIONAR bilhete</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Payments/Tickets/Index">ESTACIONAR</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Payments/Permits/Index">ESTACIONAR avença</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Payments/Permits/Index">Avenças</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Users/Vehicles/Index">Veículos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Users/Transactions/Index">Transações</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Users/Documents/Index">Documentos</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Parks/Parks/Index">Parques</a>
@@ -43,10 +52,10 @@
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Parks/Spaces/Index">Lugares</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Users/Vehicles/Index">Veículos</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Tariffs/TicketTariffs/Index">Tarifário</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Users/Transactions/Index">Transações</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Tariffs/PermitTariffs/Index">Tarifário avenças</a>
                             </li>
                         }
                     </ul>

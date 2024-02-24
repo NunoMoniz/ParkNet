@@ -12,7 +12,7 @@ public class CreateModel : PageModel
 
     public IActionResult OnGet()
     {
-    ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+    ViewData["UserId"] = new SelectList(_context.Users, "Id", "UserName");
         return Page();
     }
 

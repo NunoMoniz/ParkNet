@@ -12,8 +12,13 @@ public class CreateModel : PageModel
 
     public IActionResult OnGet()
     {
-        ViewData["SpaceId"] = new SelectList(_context.Spaces, "Id", "Name");
-        ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate");
+        var availableSpaces = _context.Spaces.Where(s => s.IsOccupied == false);
+
+        var availableVehicles = _context.Vehicles
+            .Where(v => !_context.Tickets.Any(t => t.VehicleId == v.Id && t.ExitDateTime == null));
+
+        ViewData["SpaceId"] = new SelectList(availableSpaces, "Id", "Name");
+        ViewData["VehicleId"] = new SelectList(availableVehicles, "Id", "LicensePlate");
 
         Ticket = new Ticket()
         {
@@ -34,7 +39,7 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        bool IsOccupied = Helper.CheckIfItIsOccupied(_context, Ticket.SpaceId);
+        bool IsOccupied = Helper.OccupiedTrueOrFalse(_context, Ticket.SpaceId);
         if (IsOccupied == true)
         {
             ModelState.AddModelError("Ticket.SpaceId", "O lugar selecionado já está ocupado.");

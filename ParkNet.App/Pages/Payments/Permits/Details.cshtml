@@ -24,16 +24,16 @@
             @Html.DisplayFor(model => model.Permit.PermitAccess)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Permit.Vehicle)
+            Veículo
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Permit.Vehicle.LicensePlate)
+            @Model.VehicleLicensePlate
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Permit.Space)
+            Lugar
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Permit.Space.Name)
+            @Model.SpaceName
         </dd>
     </dl>
 </div>

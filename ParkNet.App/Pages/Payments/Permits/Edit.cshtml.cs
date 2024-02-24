@@ -20,14 +20,16 @@ public class EditModel : PageModel
             return NotFound();
         }
 
-        var permit =  await _context.Permits.FirstOrDefaultAsync(m => m.Id == id);
+        var permit = await _context.Permits.FirstOrDefaultAsync(m => m.Id == id);
         if (permit == null)
         {
             return NotFound();
         }
+
         Permit = permit;
-       ViewData["SpaceId"] = new SelectList(_context.Spaces, "Id", "Name");
-       ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate");
+
+        ViewData["SpaceId"] = new SelectList(_context.Spaces, "Id", "Name");
+        ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate");
         return Page();
     }
 

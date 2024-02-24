@@ -5,10 +5,6 @@
     ViewData["Title"] = "Create";
 }
 
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
-
 <h1>Estacionamento</h1>
 
 <h4>Nova avença</h4>
@@ -18,8 +14,14 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Permit.Months" class="control-label">Indique a duração da avença, em meses: 1, 3, 6 ou 12. </label>
-                <input asp-for="Permit.Months" class="form-control" />
+                <label asp-for="Permit.Months" class="control-label">Duração da avença</label>
+                <select asp-for="Permit.Months" class="form-control">
+                    <option value="">Selecionar</option>
+                    <option value="1">Mensal</option>
+                    <option value="3">Trimestral</option>
+                    <option value="6">Semestral</option>
+                    <option value="12">Anual</option>
+                </select>
                 <span asp-validation-for="Permit.Months" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -29,11 +31,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="Permit.VehicleId" class="control-label">Matrícula</label>
-                <select asp-for="Permit.VehicleId" class ="form-control" asp-items="ViewBag.VehicleId"></select>
+                <select asp-for="Permit.VehicleId" class="form-control" asp-items="ViewBag.VehicleId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Permit.SpaceId" class="control-label">Lugar</label>
-                <select asp-for="Permit.SpaceId" class ="form-control" asp-items="ViewBag.SpaceId"></select>
+                <select asp-for="Permit.SpaceId" class="form-control" asp-items="ViewBag.SpaceId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -47,5 +49,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

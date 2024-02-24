@@ -1,6 +1,4 @@
-﻿using ParkNet.App.Data.Entities.Payments;
-
-namespace ParkNet.App.Pages.Payments.Permits;
+﻿namespace ParkNet.App.Pages.Payments.Permits;
 
 [Authorize]
 public class CreateModel : PageModel
@@ -14,8 +12,13 @@ public class CreateModel : PageModel
 
     public IActionResult OnGet()
     {
-        ViewData["SpaceId"] = new SelectList(_context.Spaces, "Id", "Name");
-        ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate");
+        var availableSpaces = _context.Spaces.Where(s => s.IsOccupied == false);
+
+        var availableVehicles = _context.Vehicles
+            .Where(v => !_context.Permits.Any(p => p.VehicleId == v.Id && p.PermitExpiry > DateTime.Now));
+
+        ViewData["SpaceId"] = new SelectList(availableSpaces, "Id", "Name");
+        ViewData["VehicleId"] = new SelectList(availableVehicles, "Id", "LicensePlate");
 
         Permit = new Permit()
         {
@@ -23,7 +26,6 @@ public class CreateModel : PageModel
         };
 
         return Page();
-
     }
 
     [BindProperty]
@@ -37,7 +39,15 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        bool IsOccupied = Helper.CheckIfItIsOccupied(_context, Permit.SpaceId);
+        if (Permit.Months != 1 && Permit.Months != 3 && Permit.Months != 6 && Permit.Months != 12)
+        {
+            ModelState.AddModelError("Permit.Months", "Avenças disponíveis: 1, 3, 6 e 12 meses.");
+            ViewData["SpaceId"] = new SelectList(_context.Spaces, "Id", "Name");
+            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate");
+            return Page();
+        }
+
+        bool IsOccupied = Helper.OccupiedTrueOrFalse(_context, Permit.SpaceId);
         if (IsOccupied == true)
         {
             ModelState.AddModelError("Permit.SpaceId", "O lugar selecionado já está ocupado.");
@@ -46,7 +56,10 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        Helper.SetToOccupied(_context, Permit.SpaceId);
+        if (IsOccupied == false)
+        {
+            Helper.SetToOccupied(_context, Permit.SpaceId);
+        }
 
         Permit.PermitExpiry = Helper.CalculatePermitExpiry(Permit.Months, Permit.PermitAccess);
 

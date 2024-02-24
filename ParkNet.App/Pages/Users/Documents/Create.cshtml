@@ -5,18 +5,22 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Inserir</h1>
 
-<h4>Document</h4>
+<h4>Documento</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Document.Name" class="control-label"></label>
-                <input asp-for="Document.Name" class="form-control" />
-                <span asp-validation-for="Document.Name" class="text-danger"></span>
+                <label asp-for="Document.Type" class="control-label">Tipo</label>
+                <select asp-for="Document.Type" class="form-control">
+                    <option value="">Selecionar</option>
+                    <option value="Carta de Condução">Carta de condução</option>
+                    <option value="Conta bancária">Conta bancária</option>
+                </select>
+                <span asp-validation-for="Document.Type" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Document.Number" class="control-label"></label>
