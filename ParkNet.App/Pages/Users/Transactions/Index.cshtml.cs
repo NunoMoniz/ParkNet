@@ -11,10 +11,14 @@ public class IndexModel : PageModel
     }
 
     public IList<Transaction> Transaction { get;set; } = default!;
+    public double SumTransactions { get; set; }
+
 
     public async Task OnGetAsync()
     {
         Transaction = await _context.Transactions
             .Include(t => t.User).ToListAsync();
+
+        SumTransactions = _context.Transactions.Sum(t => t.InsAndOuts);
     }
 }

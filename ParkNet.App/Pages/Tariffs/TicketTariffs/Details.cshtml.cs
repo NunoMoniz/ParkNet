@@ -19,7 +19,7 @@ public class DetailsModel : PageModel
             return NotFound();
         }
 
-        var tickettariff = await _context.TariffTickets.FirstOrDefaultAsync(m => m.Id == id);
+        var tickettariff = await _context.TicketsTariff.FirstOrDefaultAsync(m => m.Id == id);
         if (tickettariff == null)
         {
             return NotFound();

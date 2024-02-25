@@ -26,7 +26,7 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        _context.TariffPermits.Add(PermitTariff);
+        _context.PermitsTariff.Add(PermitTariff);
         await _context.SaveChangesAsync();
 
         return RedirectToPage("./Index");

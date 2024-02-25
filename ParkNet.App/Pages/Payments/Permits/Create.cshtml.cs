@@ -13,10 +13,8 @@ public class CreateModel : PageModel
     public IActionResult OnGet()
     {
         var availableSpaces = _context.Spaces.Where(s => s.IsOccupied == false);
-
         var availableVehicles = _context.Vehicles
             .Where(v => !_context.Permits.Any(p => p.VehicleId == v.Id && p.PermitExpiry > DateTime.Now));
-
         ViewData["SpaceId"] = new SelectList(availableSpaces, "Id", "Name");
         ViewData["VehicleId"] = new SelectList(availableVehicles, "Id", "LicensePlate");
 
@@ -39,22 +37,20 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        if (Permit.Months != 1 && Permit.Months != 3 && Permit.Months != 6 && Permit.Months != 12)
+        bool enoughBalance = Helper.IsBalanceEnough(_context, Permit.VehicleId);
+
+        if (enoughBalance == false)
         {
-            ModelState.AddModelError("Permit.Months", "Avenças disponíveis: 1, 3, 6 e 12 meses.");
-            ViewData["SpaceId"] = new SelectList(_context.Spaces, "Id", "Name");
-            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate");
+            ModelState.AddModelError("Permit.Months", "Carregue o seu saldo para poder efetuar esta compra.");
+            var availableSpaces = _context.Spaces.Where(s => s.IsOccupied == false);
+            var availableVehicles = _context.Vehicles
+                .Where(v => !_context.Permits.Any(p => p.VehicleId == v.Id && p.PermitExpiry > DateTime.Now));
+            ViewData["SpaceId"] = new SelectList(availableSpaces, "Id", "Name");
+            ViewData["VehicleId"] = new SelectList(availableVehicles, "Id", "LicensePlate");
             return Page();
         }
 
         bool IsOccupied = Helper.OccupiedTrueOrFalse(_context, Permit.SpaceId);
-        if (IsOccupied == true)
-        {
-            ModelState.AddModelError("Permit.SpaceId", "O lugar selecionado já está ocupado.");
-            ViewData["SpaceId"] = new SelectList(_context.Spaces, "Id", "Name");
-            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate");
-            return Page();
-        }
 
         if (IsOccupied == false)
         {
@@ -63,7 +59,12 @@ public class CreateModel : PageModel
 
         Permit.PermitExpiry = Helper.CalculatePermitExpiry(Permit.Months, Permit.PermitAccess);
 
+        Transaction transaction = Helper.PermitPaymentCalculator(_context, Permit.VehicleId, Permit.Months);
+
+        _context.Transactions.Add(transaction);
+
         _context.Permits.Add(Permit);
+
         await _context.SaveChangesAsync();
 
         return RedirectToPage("./Index");

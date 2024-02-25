@@ -20,7 +20,7 @@ public class DeleteModel : PageModel
             return NotFound();
         }
 
-        var tickettariff = await _context.TariffTickets.FirstOrDefaultAsync(m => m.Id == id);
+        var tickettariff = await _context.TicketsTariff.FirstOrDefaultAsync(m => m.Id == id);
 
         if (tickettariff == null)
         {
@@ -40,11 +40,11 @@ public class DeleteModel : PageModel
             return NotFound();
         }
 
-        var tickettariff = await _context.TariffTickets.FindAsync(id);
+        var tickettariff = await _context.TicketsTariff.FindAsync(id);
         if (tickettariff != null)
         {
             TicketTariff = tickettariff;
-            _context.TariffTickets.Remove(TicketTariff);
+            _context.TicketsTariff.Remove(TicketTariff);
             await _context.SaveChangesAsync();
         }
 

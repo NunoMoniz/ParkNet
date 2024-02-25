@@ -20,7 +20,7 @@ public class EditModel : PageModel
             return NotFound();
         }
 
-        var permittariff =  await _context.TariffPermits.FirstOrDefaultAsync(m => m.Id == id);
+        var permittariff =  await _context.PermitsTariff.FirstOrDefaultAsync(m => m.Id == id);
         if (permittariff == null)
         {
             return NotFound();
@@ -61,6 +61,6 @@ public class EditModel : PageModel
 
     private bool PermitTariffExists(int id)
     {
-        return _context.TariffPermits.Any(e => e.Id == id);
+        return _context.PermitsTariff.Any(e => e.Id == id);
     }
 }

@@ -19,7 +19,7 @@ public class DetailsModel : PageModel
             return NotFound();
         }
 
-        var permittariff = await _context.TariffPermits.FirstOrDefaultAsync(m => m.Id == id);
+        var permittariff = await _context.PermitsTariff.FirstOrDefaultAsync(m => m.Id == id);
         if (permittariff == null)
         {
             return NotFound();

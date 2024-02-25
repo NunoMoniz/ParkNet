@@ -13,10 +13,8 @@ public class CreateModel : PageModel
     public IActionResult OnGet()
     {
         var availableSpaces = _context.Spaces.Where(s => s.IsOccupied == false);
-
         var availableVehicles = _context.Vehicles
             .Where(v => !_context.Tickets.Any(t => t.VehicleId == v.Id && t.ExitDateTime == null));
-
         ViewData["SpaceId"] = new SelectList(availableSpaces, "Id", "Name");
         ViewData["VehicleId"] = new SelectList(availableVehicles, "Id", "LicensePlate");
 
@@ -39,16 +37,22 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        bool IsOccupied = Helper.OccupiedTrueOrFalse(_context, Ticket.SpaceId);
-        if (IsOccupied == true)
+        bool enoughBalance = Helper.IsBalanceEnough(_context, Ticket.VehicleId);
+
+        if (enoughBalance == false)
         {
-            ModelState.AddModelError("Ticket.SpaceId", "O lugar selecionado já está ocupado.");
-            ViewData["SpaceId"] = new SelectList(_context.Spaces, "Id", "Name");
-            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate");
+            ModelState.AddModelError("Ticket.EntryDateTime", "Carregue o seu saldo para poder efetuar esta compra.");
+            var availableSpaces = _context.Spaces.Where(s => s.IsOccupied == false);
+            var availableVehicles = _context.Vehicles
+                .Where(v => !_context.Tickets.Any(t => t.VehicleId == v.Id && t.ExitDateTime == null));
+            ViewData["SpaceId"] = new SelectList(availableSpaces, "Id", "Name");
+            ViewData["VehicleId"] = new SelectList(availableVehicles, "Id", "LicensePlate");
             return Page();
         }
 
-        if (Ticket.ExitDateTime == null)
+        bool IsOccupied = Helper.OccupiedTrueOrFalse(_context, Ticket.SpaceId);
+
+        if (IsOccupied == false)
         {
             Helper.SetToOccupied(_context, Ticket.SpaceId);
         }

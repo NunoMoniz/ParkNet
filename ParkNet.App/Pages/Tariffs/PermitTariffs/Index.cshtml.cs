@@ -14,6 +14,6 @@ public class IndexModel : PageModel
 
     public async Task OnGetAsync()
     {
-        PermitTariff = await _context.TariffPermits.ToListAsync();
+        PermitTariff = await _context.PermitsTariff.ToListAsync();
     }
 }

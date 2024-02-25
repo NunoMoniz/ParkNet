@@ -20,7 +20,7 @@ public class DeleteModel : PageModel
             return NotFound();
         }
 
-        var permittariff = await _context.TariffPermits.FirstOrDefaultAsync(m => m.Id == id);
+        var permittariff = await _context.PermitsTariff.FirstOrDefaultAsync(m => m.Id == id);
 
         if (permittariff == null)
         {
@@ -40,11 +40,11 @@ public class DeleteModel : PageModel
             return NotFound();
         }
 
-        var permittariff = await _context.TariffPermits.FindAsync(id);
+        var permittariff = await _context.PermitsTariff.FindAsync(id);
         if (permittariff != null)
         {
             PermitTariff = permittariff;
-            _context.TariffPermits.Remove(PermitTariff);
+            _context.PermitsTariff.Remove(PermitTariff);
             await _context.SaveChangesAsync();
         }
 

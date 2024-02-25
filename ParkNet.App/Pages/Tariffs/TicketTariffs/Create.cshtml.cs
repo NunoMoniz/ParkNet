@@ -26,7 +26,7 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        _context.TariffTickets.Add(TicketTariff);
+        _context.TicketsTariff.Add(TicketTariff);
         await _context.SaveChangesAsync();
 
         return RedirectToPage("./Index");

@@ -20,7 +20,7 @@ public class EditModel : PageModel
             return NotFound();
         }
 
-        var tickettariff =  await _context.TariffTickets.FirstOrDefaultAsync(m => m.Id == id);
+        var tickettariff =  await _context.TicketsTariff.FirstOrDefaultAsync(m => m.Id == id);
         if (tickettariff == null)
         {
             return NotFound();
@@ -61,6 +61,6 @@ public class EditModel : PageModel
 
     private bool TicketTariffExists(int id)
     {
-        return _context.TariffTickets.Any(e => e.Id == id);
+        return _context.TicketsTariff.Any(e => e.Id == id);
     }
 }

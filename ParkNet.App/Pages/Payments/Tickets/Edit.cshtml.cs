@@ -51,17 +51,25 @@ public class EditModel : PageModel
         if (Ticket.ExitDateTime <= Ticket.EntryDateTime)
         {
             ModelState.AddModelError("Ticket.ExitDateTime", "A data de saída deve ser posterior à data de entrada.");
-            ViewData["SpaceId"] = new SelectList(_context.Spaces, "Id", "Name");
-            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate");
+            var currentSpace = _context.Spaces.Where(s => s.Id == Ticket.SpaceId);
+            var currentVehicle = _context.Vehicles.Where(v => v.Id == Ticket.VehicleId);
+            ViewData["SpaceId"] = new SelectList(currentSpace, "Id", "Name");
+            ViewData["VehicleId"] = new SelectList(currentVehicle, "Id", "LicensePlate");
             return Page();
         }
 
-        if (Ticket.ExitDateTime != null && Ticket.ExitDateTime >= Ticket.EntryDateTime)
+        if (Ticket.ExitDateTime != null && Ticket.ExitDateTime > Ticket.EntryDateTime)
         {
             Helper.SetToAvailable(_context, Ticket.SpaceId);
         }
 
         _context.Attach(Ticket).State = EntityState.Modified;
+
+
+        Transaction transaction = Helper.TicketPaymentCalculator(_context, Ticket.VehicleId, Ticket.EntryDateTime, Ticket.ExitDateTime);
+
+        _context.Transactions.Add(transaction);
+
 
         try
         {

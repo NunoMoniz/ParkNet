@@ -9,8 +9,8 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Ticket> Tickets { get; set; }
     public DbSet<Vehicle> Vehicles { get; set; }
     public DbSet<Transaction> Transactions { get; set; }
-    public DbSet<PermitTariff> TariffPermits { get; set; }
-    public DbSet<TicketTariff> TariffTickets { get; set; }
+    public DbSet<PermitTariff> PermitsTariff { get; set; }
+    public DbSet<TicketTariff> TicketsTariff { get; set; }
     public DbSet<Document> Documents { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

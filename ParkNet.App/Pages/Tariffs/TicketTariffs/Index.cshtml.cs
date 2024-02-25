@@ -14,6 +14,6 @@ public class IndexModel : PageModel
 
     public async Task OnGetAsync()
     {
-        TicketTariff = await _context.TariffTickets.ToListAsync();
+        TicketTariff = await _context.TicketsTariff.ToListAsync();
     }
 }
