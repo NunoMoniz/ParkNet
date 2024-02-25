@@ -1,6 +1,5 @@
 ﻿namespace ParkNet.App.Pages.Users.Documents;
 
-[Authorize]
 public class EditModel : PageModel
 {
     private readonly ParkNet.App.Data.ApplicationDbContext _context;
@@ -26,7 +25,7 @@ public class EditModel : PageModel
             return NotFound();
         }
         Document = document;
-       ViewData["UserId"] = new SelectList(_context.Users, "Id", "UserName");
+       ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
         return Page();
     }
 

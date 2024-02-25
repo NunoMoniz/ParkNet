@@ -19,17 +19,12 @@ public class FloorFactory
     {
         List<Space> spaces = [];
 
-        // processar o plan e criar os espaços
-        // - split em linhas
         string[] lines = floorPlan.Split('\n');
 
-        // - percorrer as linhas
         for (int i = 0; i < lines.Length; i++)
         {
-            // - para cada linha, percorrer os caracteres
             for (int j = 0; j < lines[i].Length; j++)
             {
-                // - para cada caracter, criar um espaço
                 Space space = new()
                 {
                     Name = SpaceNominator(i, j),

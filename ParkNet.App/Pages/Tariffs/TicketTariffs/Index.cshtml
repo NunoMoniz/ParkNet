@@ -5,19 +5,19 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Tarifário bilhetes</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create">Criar novo</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TicketTariff[0].Each15minOnFirstHour)
+                Preço por cada 15 minutos, na primeira hora
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TicketTariff[0].SecondAndNextHours)
+                Preço por hora, a partir da segunda hora
             </th>
             <th></th>
         </tr>

@@ -5,44 +5,34 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
-<h4>Permit</h4>
+<h4>Avença</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Permit.Id" />
-@*             <div class="form-group">
-                <label asp-for="Permit.Months" class="control-label"></label>
-                <input asp-for="Permit.Months" class="form-control" />
-                <span asp-validation-for="Permit.Months" class="text-danger"></span>
-            </div>
             <div class="form-group">
-                <label asp-for="Permit.PermitAccess" class="control-label"></label>
-                <input asp-for="Permit.PermitAccess" class="form-control" />
-                <span asp-validation-for="Permit.PermitAccess" class="text-danger"></span>
-            </div> *@
-            <div class="form-group">
-                <label asp-for="Permit.VehicleId" class="control-label"></label>
+                <label asp-for="Permit.VehicleId" class="control-label">Veículo</label>
                 <select asp-for="Permit.VehicleId" class="form-control" asp-items="ViewBag.VehicleId"></select>
                 <span asp-validation-for="Permit.VehicleId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Permit.SpaceId" class="control-label"></label>
+                <label asp-for="Permit.SpaceId" class="control-label">Lugar</label>
                 <select asp-for="Permit.SpaceId" class="form-control" asp-items="ViewBag.SpaceId"></select>
                 <span asp-validation-for="Permit.SpaceId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Gravar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index">Retroceder</a>
 </div>
 
 @section Scripts {

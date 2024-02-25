@@ -5,9 +5,9 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
-<h4>Vehicle</h4>
+<h4>Veículo</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,29 +15,29 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Vehicle.Id" />
             <div class="form-group">
-                <label asp-for="Vehicle.LicensePlate" class="control-label"></label>
+                <label asp-for="Vehicle.LicensePlate" class="control-label">Matrícula</label>
                 <input asp-for="Vehicle.LicensePlate" class="form-control" />
                 <span asp-validation-for="Vehicle.LicensePlate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Vehicle.Type" class="control-label"></label>
+                <label asp-for="Vehicle.Type" class="control-label">Tipo</label>
                 <input asp-for="Vehicle.Type" class="form-control" />
                 <span asp-validation-for="Vehicle.Type" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Vehicle.UserId" class="control-label"></label>
+                <label asp-for="Vehicle.UserId" class="control-label">Usuário</label>
                 <select asp-for="Vehicle.UserId" class="form-control" asp-items="ViewBag.UserId"></select>
                 <span asp-validation-for="Vehicle.UserId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index">Retroceder</a>
 </div>
 
 @section Scripts {

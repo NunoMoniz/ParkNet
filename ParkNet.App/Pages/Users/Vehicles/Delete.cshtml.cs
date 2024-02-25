@@ -1,63 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using ParkNet.App.Data;
-using ParkNet.App.Data.Entities.Users;
+﻿namespace ParkNet.App.Pages.Users.Vehicles;
 
-namespace ParkNet.App.Pages.Users.Vehicles
+public class DeleteModel : PageModel
 {
-    public class DeleteModel : PageModel
+    private readonly ParkNet.App.Data.ApplicationDbContext _context;
+
+    public DeleteModel(ParkNet.App.Data.ApplicationDbContext context)
     {
-        private readonly ParkNet.App.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public DeleteModel(ParkNet.App.Data.ApplicationDbContext context)
+    [BindProperty]
+    public Vehicle Vehicle { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        [BindProperty]
-        public Vehicle Vehicle { get; set; } = default!;
+        var vehicle = await _context.Vehicles.FirstOrDefaultAsync(m => m.Id == id);
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        if (vehicle == null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            return NotFound();
+        }
+        else
+        {
+            Vehicle = vehicle;
+        }
+        return Page();
+    }
 
-            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (vehicle == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                Vehicle = vehicle;
-            }
-            return Page();
+    public async Task<IActionResult> OnPostAsync(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        var vehicle = await _context.Vehicles.FindAsync(id);
+        if (vehicle != null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var vehicle = await _context.Vehicles.FindAsync(id);
-            if (vehicle != null)
-            {
-                Vehicle = vehicle;
-                _context.Vehicles.Remove(Vehicle);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
+            Vehicle = vehicle;
+            _context.Vehicles.Remove(Vehicle);
+            await _context.SaveChangesAsync();
         }
+
+        return RedirectToPage("./Index");
     }
 }

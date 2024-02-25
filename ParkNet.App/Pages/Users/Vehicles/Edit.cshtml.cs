@@ -26,7 +26,7 @@ public class EditModel : PageModel
             return NotFound();
         }
         Vehicle = vehicle;
-       ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+       ViewData["UserId"] = new SelectList(_context.Users, "Id", "UserName");
         return Page();
     }
 

@@ -28,6 +28,8 @@ public class CreateModel : PageModel
 
     [BindProperty]
     public Ticket Ticket { get; set; } = default!;
+    [BindProperty]
+    public string PickASpace { get; set; } = default!;
 
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync()
@@ -37,9 +39,7 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        bool enoughBalance = Helper.IsBalanceEnough(_context, Ticket.VehicleId);
-
-        if (enoughBalance == false)
+        if (Helper.IsBalanceEnough(_context, Ticket.VehicleId) == false)
         {
             ModelState.AddModelError("Ticket.EntryDateTime", "Carregue o seu saldo para poder efetuar esta compra.");
             var availableSpaces = _context.Spaces.Where(s => s.IsOccupied == false);
@@ -50,9 +50,7 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        bool IsOccupied = Helper.OccupiedTrueOrFalse(_context, Ticket.SpaceId);
-
-        if (IsOccupied == false)
+        if (Helper.OccupiedTrueOrFalse(_context, Ticket.SpaceId) == false)
         {
             Helper.SetToOccupied(_context, Ticket.SpaceId);
         }

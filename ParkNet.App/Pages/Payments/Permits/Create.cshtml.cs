@@ -28,6 +28,8 @@ public class CreateModel : PageModel
 
     [BindProperty]
     public Permit Permit { get; set; } = default!;
+    [BindProperty]
+    public string DocumentsExpiry { get; set; } = default!;
 
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync()
@@ -37,9 +39,7 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        bool enoughBalance = Helper.IsBalanceEnough(_context, Permit.VehicleId);
-
-        if (enoughBalance == false)
+        if (Helper.IsBalanceEnough(_context, Permit.VehicleId) == false)
         {
             ModelState.AddModelError("Permit.Months", "Carregue o seu saldo para poder efetuar esta compra.");
             var availableSpaces = _context.Spaces.Where(s => s.IsOccupied == false);
@@ -50,9 +50,7 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        bool IsOccupied = Helper.OccupiedTrueOrFalse(_context, Permit.SpaceId);
-
-        if (IsOccupied == false)
+        if (Helper.OccupiedTrueOrFalse(_context, Permit.SpaceId) == false)
         {
             Helper.SetToOccupied(_context, Permit.SpaceId);
         }

@@ -1,6 +1,5 @@
 ﻿namespace ParkNet.App.Pages.Users.Documents;
 
-[Authorize]
 public class DetailsModel : PageModel
 {
     private readonly ParkNet.App.Data.ApplicationDbContext _context;

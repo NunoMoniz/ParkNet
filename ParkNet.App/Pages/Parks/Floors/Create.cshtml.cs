@@ -18,8 +18,6 @@ public class CreateModel : PageModel
 
     [BindProperty]
     public Floor Floor { get; set; } = default!;
-    //[BindProperty]
-    //public string Plan { get; set; }
 
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync()

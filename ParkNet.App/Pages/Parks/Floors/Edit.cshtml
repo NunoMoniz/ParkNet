@@ -5,9 +5,9 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
-<h4>Floor</h4>
+<h4>Andar</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,24 +15,24 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Floor.Id" />
             <div class="form-group">
-                <label asp-for="Floor.Number" class="control-label"></label>
+                <label asp-for="Floor.Number" class="control-label">Andar</label>
                 <input asp-for="Floor.Number" class="form-control" />
                 <span asp-validation-for="Floor.Number" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Floor.ParkId" class="control-label"></label>
+                <label asp-for="Floor.ParkId" class="control-label">Parque</label>
                 <select asp-for="Floor.ParkId" class="form-control" asp-items="ViewBag.ParkId"></select>
                 <span asp-validation-for="Floor.ParkId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Gravar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index">Retroceder</a>
 </div>
 
 @section Scripts {

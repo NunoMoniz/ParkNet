@@ -6,10 +6,9 @@ public class Document
     [Required]
     public string Type { get; set; }
     [Required]
-
     public int Number { get; set; }
     [Required]
-    public DateTime ExpirationDate { get; set; }
+    public DateTime ExpiryDate { get; set; }
     public string UserId { get; set; }
     public IdentityUser User { get; set; }
 }

@@ -4,6 +4,7 @@
 public class DeleteModel : PageModel
 {
     private readonly ParkNet.App.Data.ApplicationDbContext _context;
+    private readonly UserManager<IdentityUser> _userManager;
 
     public DeleteModel(ParkNet.App.Data.ApplicationDbContext context)
     {
@@ -12,6 +13,8 @@ public class DeleteModel : PageModel
 
     [BindProperty]
     public Permit Permit { get; set; } = default!;
+    public string SpaceName { get; set; } = default!;
+    public string VehicleLicensePlate { get; set; }
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {

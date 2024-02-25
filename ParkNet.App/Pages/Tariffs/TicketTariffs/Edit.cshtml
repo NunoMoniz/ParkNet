@@ -15,12 +15,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="TicketTariff.Id" />
             <div class="form-group">
-                <label asp-for="TicketTariff.Each15minOnFirstHour" class="control-label"></label>
+                <label asp-for="TicketTariff.Each15minOnFirstHour" class="control-label">Preço por cada 15 minutos, na primeira hora</label>
                 <input asp-for="TicketTariff.Each15minOnFirstHour" class="form-control" />
                 <span asp-validation-for="TicketTariff.Each15minOnFirstHour" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TicketTariff.SecondAndNextHours" class="control-label"></label>
+                <label asp-for="TicketTariff.SecondAndNextHours" class="control-label">Preço por hora, a partir da segunda hora</label>
                 <input asp-for="TicketTariff.SecondAndNextHours" class="form-control" />
                 <span asp-validation-for="TicketTariff.SecondAndNextHours" class="text-danger"></span>
             </div>

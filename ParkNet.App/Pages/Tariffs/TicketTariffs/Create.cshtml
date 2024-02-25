@@ -5,33 +5,33 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Criar</h1>
 
-<h4>TicketTariff</h4>
+<h4>Tarifário de bilhetes</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="TicketTariff.Each15minOnFirstHour" class="control-label"></label>
+                <label asp-for="TicketTariff.Each15minOnFirstHour" class="control-label">Preço por cada 15 minutos, na primeira hora</label>
                 <input asp-for="TicketTariff.Each15minOnFirstHour" class="form-control" />
                 <span asp-validation-for="TicketTariff.Each15minOnFirstHour" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TicketTariff.SecondAndNextHours" class="control-label"></label>
+                <label asp-for="TicketTariff.SecondAndNextHours" class="control-label">Preço por hora, a partir da segunda hora</label>
                 <input asp-for="TicketTariff.SecondAndNextHours" class="form-control" />
                 <span asp-validation-for="TicketTariff.SecondAndNextHours" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Submeter" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="Index">Retroceder</a>
 </div>
 
 @section Scripts {

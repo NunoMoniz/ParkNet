@@ -20,9 +20,6 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Ajuda</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
@@ -52,7 +49,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Parks/Spaces/Index">Lugares</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Tariffs/TicketTariffs/Index">Tarifário</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Tariffs/TicketTariffs/Index">Tarifário bilhetes</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Tariffs/PermitTariffs/Index">Tarifário avenças</a>
@@ -72,7 +69,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - ParkNet.App - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2024 - ParkNet.App - <a asp-area="" asp-page="/Privacy">Ajuda</a>
         </div>
     </footer>
 

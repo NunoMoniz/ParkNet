@@ -5,7 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Estacionamento</h1>
+<h1>Avenças</h1>
 
 <p>
     <a asp-page="Create">Nova avença</a>
@@ -14,19 +14,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Permit[0].Months)
+                Duração em meses
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Permit[0].PermitAccess)
+                Data de início
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Permit[0].PermitExpiry)
+                Data de fim
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Permit[0].Vehicle)
+                Veículo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Permit[0].Space)
+                Lugar
             </th>
             <th></th>
         </tr>
@@ -50,9 +50,9 @@
                 @Html.DisplayFor(modelItem => item.Space.Name)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Detalhes</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Apagar</a>
             </td>
         </tr>
 }

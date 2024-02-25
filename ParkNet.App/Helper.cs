@@ -37,6 +37,18 @@ public class Helper
         return space.Name;
     }
 
+    public static bool AreDocumentsUpToDate (ApplicationDbContext context, int vehicleId)
+    {
+        string UserId = context.Vehicles.Find(vehicleId).UserId;
+        var documents = context.Documents.Where(d => d.UserId == UserId);
+
+        if (documents.All(d => d.ExpiryDate < DateTime.Now))
+        {
+            return false;
+        }
+        return true;
+    }
+
     public static string GetVehicleLicensePlate(ApplicationDbContext context, int vehicleId)
     {
         Vehicle vehicle = context.Vehicles.Find(vehicleId);
