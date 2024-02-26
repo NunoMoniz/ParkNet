@@ -10,13 +10,11 @@ public class CreateModel : PageModel
         _context = context;
     }
 
+
     public IActionResult OnGet()
     {
-        var availableSpaces = _context.Spaces.Where(s => s.IsOccupied == false);
-        var availableVehicles = _context.Vehicles
-            .Where(v => !_context.Tickets.Any(t => t.VehicleId == v.Id && t.ExitDateTime == null));
-        ViewData["SpaceId"] = new SelectList(availableSpaces, "Id", "Name");
-        ViewData["VehicleId"] = new SelectList(availableVehicles, "Id", "LicensePlate");
+        ViewData["SpaceId"] = new SelectList(Helper.AvailableSpaces(_context), "Id", "Name");
+        ViewData["VehicleId"] = new SelectList(Helper.AvailableVehicles(_context), "Id", "LicensePlate");
 
         Ticket = new Ticket()
         {
@@ -28,8 +26,7 @@ public class CreateModel : PageModel
 
     [BindProperty]
     public Ticket Ticket { get; set; } = default!;
-    [BindProperty]
-    public string PickASpace { get; set; } = default!;
+
 
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync()
@@ -42,15 +39,20 @@ public class CreateModel : PageModel
         if (Helper.IsBalanceEnough(_context, Ticket.VehicleId) == false)
         {
             ModelState.AddModelError("Ticket.EntryDateTime", "Carregue o seu saldo para poder efetuar esta compra.");
-            var availableSpaces = _context.Spaces.Where(s => s.IsOccupied == false);
-            var availableVehicles = _context.Vehicles
-                .Where(v => !_context.Tickets.Any(t => t.VehicleId == v.Id && t.ExitDateTime == null));
-            ViewData["SpaceId"] = new SelectList(availableSpaces, "Id", "Name");
-            ViewData["VehicleId"] = new SelectList(availableVehicles, "Id", "LicensePlate");
+            ViewData["SpaceId"] = new SelectList(Helper.AvailableSpaces(_context), "Id", "Name");
+            ViewData["VehicleId"] = new SelectList(Helper.AvailableVehicles(_context), "Id", "LicensePlate");
             return Page();
         }
 
-        if (Helper.OccupiedTrueOrFalse(_context, Ticket.SpaceId) == false)
+        if (Helper.IsItOccupied(_context, Ticket.SpaceId) == true)
+        {
+            ModelState.AddModelError("Ticket.EntryDateTime", "Este lugar está ocupado.");
+            ViewData["SpaceId"] = new SelectList(Helper.AvailableSpaces(_context), "Id", "Name");
+            ViewData["VehicleId"] = new SelectList(Helper.AvailableVehicles(_context), "Id", "LicensePlate");
+            return Page();
+        }
+
+        if (Helper.IsItOccupied(_context, Ticket.SpaceId) == false)
         {
             Helper.SetToOccupied(_context, Ticket.SpaceId);
         }

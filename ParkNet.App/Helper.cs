@@ -1,4 +1,6 @@
-﻿namespace ParkNet.App;
+﻿using ParkNet.App.Data.Entities.Users;
+
+namespace ParkNet.App;
 
 public class Helper
 {
@@ -16,7 +18,7 @@ public class Helper
         space.IsOccupied = false;
     }
 
-    public static bool OccupiedTrueOrFalse(ApplicationDbContext context, int spaceId)
+    public static bool IsItOccupied(ApplicationDbContext context, int spaceId)
     {
         Space space = context.Spaces.Find(spaceId);
         if (space != null && space.IsOccupied == true)
@@ -26,18 +28,28 @@ public class Helper
         return false;
     }
 
-    public static DateTime CalculatePermitExpiry(int name, DateTime PermitAccess)
-    {
-        return PermitAccess.AddMonths(name);
-    }
-
     public static string GetSpaceName(ApplicationDbContext context, int spaceId)
     {
         Space space = context.Spaces.Find(spaceId);
         return space.Name;
     }
 
-    public static bool AreDocumentsUpToDate (ApplicationDbContext context, int vehicleId)
+    public static IQueryable<Space> AvailableSpaces(ApplicationDbContext context)
+    {
+        var availableSpaces = context.Spaces
+            .Where(s => s.IsOccupied == false);
+        return availableSpaces;
+    }
+
+    public static IQueryable<Vehicle> AvailableVehicles(ApplicationDbContext context)
+    {
+        var availableVehicles = context.Vehicles
+            .Where(v => !context.Tickets.Any(t => t.VehicleId == v.Id && t.ExitDateTime == null));
+
+        return availableVehicles;
+    }
+
+    public static bool AreDocumentsUpToDate(ApplicationDbContext context, int vehicleId)
     {
         string UserId = context.Vehicles.Find(vehicleId).UserId;
         var documents = context.Documents.Where(d => d.UserId == UserId);
@@ -53,6 +65,11 @@ public class Helper
     {
         Vehicle vehicle = context.Vehicles.Find(vehicleId);
         return vehicle.LicensePlate;
+    }
+
+    public static DateTime CalculatePermitExpiry(int name, DateTime PermitAccess)
+    {
+        return PermitAccess.AddMonths(name);
     }
 
     public static bool IsBalanceEnough(ApplicationDbContext context, int vehicleId)
@@ -97,7 +114,8 @@ public class Helper
         var transaction = new Transaction
         {
             InsAndOuts = negative,
-            UserId = context.Vehicles.Find(vehicleId).UserId
+            UserId = context.Vehicles.Find(vehicleId).UserId,
+            Datetime = DateTime.Now,
         };
 
         return transaction;
@@ -110,7 +128,8 @@ public class Helper
         var transaction = new Transaction
         {
             InsAndOuts = 0,
-            UserId = context.Vehicles.Find(vehicleId).UserId
+            UserId = context.Vehicles.Find(vehicleId).UserId,
+            Datetime = DateTime.Now,
         };
 
         switch (months)
@@ -131,5 +150,16 @@ public class Helper
                 break;
         }
         return transaction;
+    }
+
+    public static string[] PrintAllSpaces(ApplicationDbContext context, int floorId)
+    {
+        var spaces = context.Spaces.Where(s => s.FloorId == floorId).ToList();
+        string[] spaceNames = new string[spaces.Count];
+        for (int i = 0; i < spaces.Count; i++)
+        {
+            spaceNames[i] = spaces[i].Name;
+        }
+        return spaceNames;
     }
 }

@@ -14,12 +14,12 @@ public class FloorFactory
 
         return floor;
     }
-
+    
     private static List<Space> CreateSpaces(string floorPlan)
     {
         List<Space> spaces = [];
 
-        string[] lines = floorPlan.Split('\n');
+        string[] lines = floorPlan.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
         for (int i = 0; i < lines.Length; i++)
         {

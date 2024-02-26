@@ -12,11 +12,8 @@ public class CreateModel : PageModel
 
     public IActionResult OnGet()
     {
-        var availableSpaces = _context.Spaces.Where(s => s.IsOccupied == false);
-        var availableVehicles = _context.Vehicles
-            .Where(v => !_context.Permits.Any(p => p.VehicleId == v.Id && p.PermitExpiry > DateTime.Now));
-        ViewData["SpaceId"] = new SelectList(availableSpaces, "Id", "Name");
-        ViewData["VehicleId"] = new SelectList(availableVehicles, "Id", "LicensePlate");
+        ViewData["SpaceId"] = new SelectList(Helper.AvailableSpaces(_context), "Id", "Name");
+        ViewData["VehicleId"] = new SelectList(Helper.AvailableVehicles(_context), "Id", "LicensePlate");
 
         Permit = new Permit()
         {
@@ -42,15 +39,12 @@ public class CreateModel : PageModel
         if (Helper.IsBalanceEnough(_context, Permit.VehicleId) == false)
         {
             ModelState.AddModelError("Permit.Months", "Carregue o seu saldo para poder efetuar esta compra.");
-            var availableSpaces = _context.Spaces.Where(s => s.IsOccupied == false);
-            var availableVehicles = _context.Vehicles
-                .Where(v => !_context.Permits.Any(p => p.VehicleId == v.Id && p.PermitExpiry > DateTime.Now));
-            ViewData["SpaceId"] = new SelectList(availableSpaces, "Id", "Name");
-            ViewData["VehicleId"] = new SelectList(availableVehicles, "Id", "LicensePlate");
+            ViewData["SpaceId"] = new SelectList(Helper.AvailableSpaces(_context), "Id", "Name");
+            ViewData["VehicleId"] = new SelectList(Helper.AvailableVehicles(_context), "Id", "LicensePlate");
             return Page();
         }
 
-        if (Helper.OccupiedTrueOrFalse(_context, Permit.SpaceId) == false)
+        if (Helper.IsItOccupied(_context, Permit.SpaceId) == false)
         {
             Helper.SetToOccupied(_context, Permit.SpaceId);
         }

@@ -20,9 +20,11 @@
                 Transações
             </th>
             <th>
+                Data
+            </th>
+            <th>
                 Usuário
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -31,6 +33,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.InsAndOuts)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Datetime)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.User.UserName)
