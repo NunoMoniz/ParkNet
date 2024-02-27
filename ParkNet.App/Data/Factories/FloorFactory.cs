@@ -14,7 +14,7 @@ public class FloorFactory
 
         return floor;
     }
-    
+
     private static List<Space> CreateSpaces(string floorPlan)
     {
         List<Space> spaces = [];
@@ -25,13 +25,27 @@ public class FloorFactory
         {
             for (int j = 0; j < lines[i].Length; j++)
             {
-                Space space = new()
+                if (lines[i][j] == ' ')
                 {
-                    Name = SpaceNominator(i, j),
-                    Type = lines[i][j],
-                    IsOccupied = false,
-                };
-                spaces.Add(space);
+                    Space space = new()
+                    {
+                        Name = SpaceNominator(i, j),
+                        Type = lines[i][j],
+                        IsOccupied = true
+                    };
+                    spaces.Add(space);
+                }
+                else if (lines[i][j] != ' ')
+                {
+                    Space space = new()
+                    {
+                        Name = SpaceNominator(i, j),
+                        Type = lines[i][j],
+                        IsOccupied = false
+                    };
+                    spaces.Add(space);
+                }
+
             }
         }
         return spaces;

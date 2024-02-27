@@ -22,6 +22,23 @@
                 <label asp-for="Ticket.VehicleId" class="control-label">Veículo</label>
                 <select asp-for="Ticket.VehicleId" class="form-control" asp-items="ViewBag.VehicleId"></select>
             </div>
+            <br />
+            <h6>Disponibilidade:</h6>
+            @foreach (Space space in Model.AllSpaces)
+            {
+                if (space.IsOccupied == false)
+                {
+                    <b><span style='color:green'>@space.Name</span></b>
+                }
+                else if (space.IsOccupied == true && !char.IsWhiteSpace(space.Type))
+                {
+                    <b><span style='color:red'>@space.Name</span></b>
+                }
+                else if (char.IsWhiteSpace(space.Type))
+                {
+                    <b><span style='color:red'>X</span></b>
+                }
+            }
             <div class="form-group">
                 <label asp-for="Ticket.SpaceId" class="control-label">Lugar</label>
                 <select asp-for="Ticket.SpaceId" class="form-control" asp-items="ViewBag.SpaceId"></select>

@@ -10,9 +10,11 @@ public class CreateModel : PageModel
         _context = context;
     }
 
-
     public IActionResult OnGet()
     {
+
+        AllSpaces = _context.Spaces.ToArray();
+
         ViewData["SpaceId"] = new SelectList(Helper.AvailableSpaces(_context), "Id", "Name");
         ViewData["VehicleId"] = new SelectList(Helper.AvailableVehicles(_context), "Id", "LicensePlate");
 
@@ -26,7 +28,8 @@ public class CreateModel : PageModel
 
     [BindProperty]
     public Ticket Ticket { get; set; } = default!;
-
+    [BindProperty]
+    public Space[] AllSpaces { get; set; }
 
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync()

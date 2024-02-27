@@ -7,6 +7,17 @@
 <div class="text-center">
     <h1 class="display-4">Bem-vindo</h1>
     <p>ao programa ParkNet</p>
+    @if (User.Identity.IsAuthenticated)
+    {
+        @if (Model.DocumentsValidation == false)
+        {
+            <p>
+                <span style="color: red;">
+                    Atenção: os seus documentos encontram-se fora de validade, por favor atualize para poder estacionar.
+                </span>
+            </p>
+        }
+    }
 </div>
 
 

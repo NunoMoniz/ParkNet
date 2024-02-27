@@ -4,8 +4,6 @@ namespace ParkNet.App;
 
 public class Helper
 {
-    private readonly ApplicationDbContext _context;
-
     public static void SetToOccupied(ApplicationDbContext context, int spaceId)
     {
         Space space = context.Spaces.Find(spaceId);
@@ -49,12 +47,11 @@ public class Helper
         return availableVehicles;
     }
 
-    public static bool AreDocumentsUpToDate(ApplicationDbContext context, int vehicleId)
+    public static bool AreDocumentsUpToDate(ApplicationDbContext context, string UserId)
     {
-        string UserId = context.Vehicles.Find(vehicleId).UserId;
         var documents = context.Documents.Where(d => d.UserId == UserId);
 
-        if (documents.All(d => d.ExpiryDate < DateTime.Now))
+        if (documents.Any(d => d.ExpiryDate < DateTime.Now))
         {
             return false;
         }
@@ -150,16 +147,5 @@ public class Helper
                 break;
         }
         return transaction;
-    }
-
-    public static string[] PrintAllSpaces(ApplicationDbContext context, int floorId)
-    {
-        var spaces = context.Spaces.Where(s => s.FloorId == floorId).ToList();
-        string[] spaceNames = new string[spaces.Count];
-        for (int i = 0; i < spaces.Count; i++)
-        {
-            spaceNames[i] = spaces[i].Name;
-        }
-        return spaceNames;
     }
 }
