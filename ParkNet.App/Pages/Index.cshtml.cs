@@ -21,8 +21,7 @@ public class IndexModel : PageModel
 
         if (user != null)
         {
-            string userId = user.Id;
-            DocumentsValidation = Helper.AreDocumentsUpToDate(_ctx, userId);
+            DocumentsValidation = Helper.AreDocumentsUpToDate(_ctx, user.Id);
         }
     }
 

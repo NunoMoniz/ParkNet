@@ -19,7 +19,7 @@ public class FloorFactory
     {
         List<Space> spaces = [];
 
-        string[] lines = floorPlan.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+        string[] lines = floorPlan.Split('\n');
 
         for (int i = 0; i < lines.Length; i++)
         {

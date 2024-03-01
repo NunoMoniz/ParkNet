@@ -51,22 +51,23 @@ public class CreateModel : PageModel
 
         _context.Parks.Add(newPark);
 
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
+
 
         foreach (var floor in newPark.Floors)
             _context.Floors.Add(floor);
 
         await _context.SaveChangesAsync();
 
+
         foreach (var floor in newPark.Floors)
         {
             foreach (var space in floor.Spaces)
             {
                 _context.Spaces.Add(space);
+                await Console.Out.WriteLineAsync(space.Name);
             }
         }
-
-        _context.Parks.Add(Park);
 
         await _context.SaveChangesAsync();
 

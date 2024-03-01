@@ -14,6 +14,14 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if (Model.DocumentsUpToDate == false)
+            {
+                <p>
+                    <span style="color: red;">
+                        Atenção: os seus documentos encontram-se fora de validade, por favor atualize para poder estacionar.
+                    </span>
+                </p>
+            }
             <div class="form-group">
                 <label asp-for="Permit.Months" class="control-label">Duração da avença</label>
                 <select asp-for="Permit.Months" class="form-control">
@@ -38,6 +46,22 @@
                 <label asp-for="Permit.SpaceId" class="control-label">Lugar</label>
                 <select asp-for="Permit.SpaceId" class="form-control" asp-items="ViewBag.SpaceId"></select>
             </div>
+            <h6>Disponibilidade:</h6>
+            @foreach (Space space in Model.AllSpaces)
+            {
+                if (!char.IsWhiteSpace(space.Type) && space.IsOccupied == false)
+                {
+                    <b><span style='color:green'>@space.Name</span></b>
+                }
+                else if (!char.IsWhiteSpace(space.Type) && space.IsOccupied == true)
+                {
+                    <b><span style='color:red'>@space.Name</span></b>
+                }
+                else if (char.IsWhiteSpace(space.Type))
+                {
+                    <b><span style='color:red'>X</span></b>
+                }
+            }
             <div class="form-group">
                 <input type="submit" value="Submeter" class="btn btn-primary" />
             </div>

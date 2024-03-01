@@ -1,22 +1,32 @@
-﻿namespace ParkNet.App.Pages.Payments.Tickets;
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace ParkNet.App.Pages.Payments.Tickets;
 
 [Authorize]
 public class CreateModel : PageModel
 {
     private readonly ParkNet.App.Data.ApplicationDbContext _context;
+    private readonly UserManager<IdentityUser> _userManager;
 
-    public CreateModel(ParkNet.App.Data.ApplicationDbContext context)
+    public CreateModel(ParkNet.App.Data.ApplicationDbContext context, UserManager<IdentityUser> userManager)
     {
         _context = context;
+        _userManager = userManager;
     }
 
     public IActionResult OnGet()
     {
+        var user = _userManager.GetUserAsync(User).GetAwaiter().GetResult();
+
+        DocumentsUpToDate = Helper.AreDocumentsUpToDate(_context, user.Id);
 
         AllSpaces = _context.Spaces.ToArray();
 
+        if (DocumentsUpToDate == true)
+        {
         ViewData["SpaceId"] = new SelectList(Helper.AvailableSpaces(_context), "Id", "Name");
         ViewData["VehicleId"] = new SelectList(Helper.AvailableVehicles(_context), "Id", "LicensePlate");
+        }
 
         Ticket = new Ticket()
         {
@@ -30,6 +40,8 @@ public class CreateModel : PageModel
     public Ticket Ticket { get; set; } = default!;
     [BindProperty]
     public Space[] AllSpaces { get; set; }
+    [BindProperty]
+    public bool DocumentsUpToDate { get; set; }
 
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync()

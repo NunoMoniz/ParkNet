@@ -12,6 +12,8 @@ public class DeleteModel : PageModel
 
     [BindProperty]
     public Park Park { get; set; } = default!;
+    [BindProperty]
+    public string Confirmation { get; set; }
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
@@ -30,6 +32,7 @@ public class DeleteModel : PageModel
         {
             Park = park;
         }
+
         return Page();
     }
 
@@ -40,13 +43,21 @@ public class DeleteModel : PageModel
             return NotFound();
         }
 
+        //if (Confirmation != Park.Name)
+        //{
+        //    ModelState.AddModelError(string.Empty, "O nome não corresponde.");
+        //    return Page();
+        //}
+
         var park = await _context.Parks.FindAsync(id);
         if (park != null)
         {
             Park = park;
+
             _context.Parks.Remove(Park);
-            await _context.SaveChangesAsync();
         }
+
+        await _context.SaveChangesAsync();
 
         return RedirectToPage("./Index");
     }

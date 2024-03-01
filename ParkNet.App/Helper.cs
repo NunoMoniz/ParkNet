@@ -1,4 +1,5 @@
-﻿using ParkNet.App.Data.Entities.Users;
+﻿using ParkNet.App.Data.Entities.Parks;
+using ParkNet.App.Data.Entities.Users;
 
 namespace ParkNet.App;
 
@@ -35,7 +36,7 @@ public class Helper
     public static IQueryable<Space> AvailableSpaces(ApplicationDbContext context)
     {
         var availableSpaces = context.Spaces
-            .Where(s => s.IsOccupied == false);
+            .Where(s => s.IsOccupied == false && s.Type == 'C' || s.IsOccupied == false && s.Type == 'M');
         return availableSpaces;
     }
 

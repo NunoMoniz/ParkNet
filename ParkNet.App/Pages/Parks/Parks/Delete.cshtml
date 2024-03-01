@@ -18,7 +18,12 @@
             @Html.DisplayFor(model => model.Park.Name)
         </dd>
     </dl>
-    
+    <label asp-for="Confirmation">
+        <span style='color:red'>
+            <b>Confirme que deseja apagar este parque escrevendo o nome do mesmo: </b>
+        </span>
+        <br /><textarea asp-for="Confirmation" rows="1" cols="50"></textarea>
+    </label>
     <form method="post">
         <input type="hidden" asp-for="Park.Id" />
         <input type="submit" value="Apagar" class="btn btn-danger" /> |
