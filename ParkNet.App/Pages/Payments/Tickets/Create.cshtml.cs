@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace ParkNet.App.Pages.Payments.Tickets;
+﻿namespace ParkNet.App.Pages.Payments.Tickets;
 
 [Authorize]
 public class CreateModel : PageModel
@@ -16,17 +14,10 @@ public class CreateModel : PageModel
 
     public IActionResult OnGet()
     {
-        var user = _userManager.GetUserAsync(User).GetAwaiter().GetResult();
-
-        DocumentsUpToDate = Helper.AreDocumentsUpToDate(_context, user.Id);
-
         AllSpaces = _context.Spaces.ToArray();
 
-        if (DocumentsUpToDate == true)
-        {
         ViewData["SpaceId"] = new SelectList(Helper.AvailableSpaces(_context), "Id", "Name");
         ViewData["VehicleId"] = new SelectList(Helper.AvailableVehicles(_context), "Id", "LicensePlate");
-        }
 
         Ticket = new Ticket()
         {
@@ -40,8 +31,7 @@ public class CreateModel : PageModel
     public Ticket Ticket { get; set; } = default!;
     [BindProperty]
     public Space[] AllSpaces { get; set; }
-    [BindProperty]
-    public bool DocumentsUpToDate { get; set; }
+
 
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync()
@@ -51,17 +41,18 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        if (Helper.IsBalanceEnough(_context, Ticket.VehicleId) == false)
+        var user = _userManager.GetUserAsync(User).GetAwaiter().GetResult();
+        if (Helper.AreDocumentsUpToDate(_context, user.Id) == false)
         {
-            ModelState.AddModelError("Ticket.EntryDateTime", "Carregue o seu saldo para poder efetuar esta compra.");
+            ModelState.AddModelError("Ticket.EntryDateTime", "Atenção: os seus documentos encontram-se fora de validade, por favor atualize para poder estacionar.");
             ViewData["SpaceId"] = new SelectList(Helper.AvailableSpaces(_context), "Id", "Name");
             ViewData["VehicleId"] = new SelectList(Helper.AvailableVehicles(_context), "Id", "LicensePlate");
             return Page();
         }
 
-        if (Helper.IsItOccupied(_context, Ticket.SpaceId) == true)
+        if (Helper.IsBalanceEnough(_context, Ticket.VehicleId) == false)
         {
-            ModelState.AddModelError("Ticket.EntryDateTime", "Este lugar está ocupado.");
+            ModelState.AddModelError("Ticket.EntryDateTime", "Carregue o seu saldo para poder efetuar esta compra.");
             ViewData["SpaceId"] = new SelectList(Helper.AvailableSpaces(_context), "Id", "Name");
             ViewData["VehicleId"] = new SelectList(Helper.AvailableVehicles(_context), "Id", "LicensePlate");
             return Page();

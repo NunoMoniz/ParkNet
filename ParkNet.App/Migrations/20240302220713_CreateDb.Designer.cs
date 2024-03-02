@@ -12,8 +12,8 @@ using ParkNet.App.Data;
 namespace ParkNet.App.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240226215551_AddDateTimeToTransaction")]
-    partial class AddDateTimeToTransaction
+    [Migration("20240302220713_CreateDb")]
+    partial class CreateDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

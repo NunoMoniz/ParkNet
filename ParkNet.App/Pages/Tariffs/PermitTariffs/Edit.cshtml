@@ -15,34 +15,34 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="PermitTariff.Id" />
             <div class="form-group">
-                <label asp-for="PermitTariff.Monthly" class="control-label"></label>
+                <label asp-for="PermitTariff.Monthly" class="control-label">Mensal</label>
                 <input asp-for="PermitTariff.Monthly" class="form-control" />
                 <span asp-validation-for="PermitTariff.Monthly" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PermitTariff.Quarterly" class="control-label"></label>
+                <label asp-for="PermitTariff.Quarterly" class="control-label">Trimestral</label>
                 <input asp-for="PermitTariff.Quarterly" class="form-control" />
                 <span asp-validation-for="PermitTariff.Quarterly" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PermitTariff.Semiannual" class="control-label"></label>
+                <label asp-for="PermitTariff.Semiannual" class="control-label">Semestral</label>
                 <input asp-for="PermitTariff.Semiannual" class="form-control" />
                 <span asp-validation-for="PermitTariff.Semiannual" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PermitTariff.Yearly" class="control-label"></label>
+                <label asp-for="PermitTariff.Yearly" class="control-label">Anual</label>
                 <input asp-for="PermitTariff.Yearly" class="form-control" />
                 <span asp-validation-for="PermitTariff.Yearly" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Gravar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index">Retroceder</a>
 </div>
 
 @section Scripts {

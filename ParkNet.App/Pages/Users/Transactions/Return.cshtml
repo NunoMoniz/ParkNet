@@ -1,11 +1,12 @@
 ﻿@page
-@model ParkNet.App.Pages.Users.Transactions.CreateModel
+@model ParkNet.App.Pages.Users.Transactions.ReturnModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Return";
 }
 
-<h1>Carregar saldo</h1>
+<h1>Levantar saldo</h1>
+
 
 <hr />
 <div class="row">
@@ -13,16 +14,16 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Transaction.InsAndOuts" class="control-label">Qual o valor a adicionar?</label>
+                <label asp-for="Transaction.InsAndOuts" class="control-label">Qual o valor a levantar?</label>
                 <input asp-for="Transaction.InsAndOuts" class="form-control" />
                 <span asp-validation-for="Transaction.InsAndOuts" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Transaction.UserId" class="control-label">Usuário</label>
-                <select asp-for="Transaction.UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+                <select asp-for="Transaction.UserId" class="form-control" asp-items="ViewBag.UserId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Carregar" class="btn btn-primary" />
+                <input type="submit" value="Levantar" class="btn btn-primary" />
             </div>
         </form>
     </div>

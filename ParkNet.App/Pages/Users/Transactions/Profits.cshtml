@@ -1,24 +1,31 @@
 ﻿@page
-@model ParkNet.App.Pages.Users.Transactions.IndexModel
+@model ParkNet.App.Pages.Users.Transactions.ProfitsModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Profits";
 }
 
-<h1>Transações</h1>
+<h1>Lucros</h1>
+
+<form method="get">
+    <label>Filtrar por períodos:</label>
+    <select name="months">
+        <option value="1">Último mês</option>
+        <option value="3">Últimos 3 meses</option>
+        <option value="6">Últimos 6 meses</option>
+        <option value="12">Último ano</option>
+    </select>
+    <button type="submit">Apply</button>
+</form>
 
 <p>
-    <a asp-page="Create">Carregar saldo</a> ||
-    <a asp-page="Return">Levantar saldo</a>
-</p>
-<p>
-    <b>Saldo: @Model.SumTransactions</b>
+    <b>Total: @Model.Profit</b>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                Transações
+                Entradas
             </th>
             <th>
                 Data
@@ -40,10 +47,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.User.UserName)
-                </td>
-                <td>
-                    <a asp-page="./Details" asp-route-id="@item.Id">Detalhes</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Anular</a>
                 </td>
             </tr>
         }

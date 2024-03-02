@@ -38,7 +38,6 @@ public class CreateModel : PageModel
 
         foreach (char c in Plan)
         {
-            Console.WriteLine((int)c);
             if (c != 'C' && c != 'M' && c != ' ' && c != '\r' && c != '\n')
             {
                 ModelState.AddModelError(string.Empty, "A planta do parque apenas permite M, C, espaços e linhas.");

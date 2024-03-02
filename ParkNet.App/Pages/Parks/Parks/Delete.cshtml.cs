@@ -10,11 +10,6 @@ public class DeleteModel : PageModel
         _context = context;
     }
 
-    [BindProperty]
-    public Park Park { get; set; } = default!;
-    [BindProperty]
-    public string Confirmation { get; set; }
-
     public async Task<IActionResult> OnGetAsync(int? id)
     {
         if (id == null)
@@ -36,6 +31,11 @@ public class DeleteModel : PageModel
         return Page();
     }
 
+    [BindProperty]
+    public Park Park { get; set; } = default!;
+    [BindProperty]
+    public string Confirmation { get; set; }
+
     public async Task<IActionResult> OnPostAsync(int? id)
     {
         if (id == null)
@@ -43,11 +43,11 @@ public class DeleteModel : PageModel
             return NotFound();
         }
 
-        //if (Confirmation != Park.Name)
-        //{
-        //    ModelState.AddModelError(string.Empty, "O nome não corresponde.");
-        //    return Page();
-        //}
+        if (!string.Equals(Confirmation.Trim(), Park.Name.Trim(), StringComparison.OrdinalIgnoreCase))
+        {
+            ModelState.AddModelError(string.Empty, "O nome não corresponde.");
+            return Page();
+        }
 
         var park = await _context.Parks.FindAsync(id);
         if (park != null)

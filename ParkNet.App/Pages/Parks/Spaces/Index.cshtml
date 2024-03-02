@@ -26,23 +26,24 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Space) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
+        @foreach (var item in Model.Space)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Floor.Number)
-            </td>
-            <td>
+                </td>
+                <td>
                     <a asp-page="./Details" asp-route-id="@item.Id">Detalhes</a> |
-                <a asp-page="./Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Apagar</a>
-            </td>
-        </tr>
-}
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Apagar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

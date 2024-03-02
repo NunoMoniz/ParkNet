@@ -14,17 +14,10 @@ public class CreateModel : PageModel
 
     public IActionResult OnGet()
     {
-        var user = _userManager.GetUserAsync(User).GetAwaiter().GetResult();
-
-        DocumentsUpToDate = Helper.AreDocumentsUpToDate(_context, user.Id);
-
         AllSpaces = _context.Spaces.ToArray();
 
-        if (DocumentsUpToDate == true)
-        {
-            ViewData["SpaceId"] = new SelectList(Helper.AvailableSpaces(_context), "Id", "Name");
-            ViewData["VehicleId"] = new SelectList(Helper.AvailableVehicles(_context), "Id", "LicensePlate");
-        }
+        ViewData["SpaceId"] = new SelectList(Helper.AvailableSpaces(_context), "Id", "Name");
+        ViewData["VehicleId"] = new SelectList(Helper.AvailableVehicles(_context), "Id", "LicensePlate");
 
         Permit = new Permit()
         {
@@ -38,8 +31,7 @@ public class CreateModel : PageModel
     public Permit Permit { get; set; } = default!;
     [BindProperty]
     public Space[] AllSpaces { get; set; }
-    [BindProperty]
-    public bool DocumentsUpToDate { get; set; }
+
 
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync()
@@ -49,17 +41,18 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        if (Helper.IsBalanceEnough(_context, Permit.VehicleId) == false)
+        var user = _userManager.GetUserAsync(User).GetAwaiter().GetResult();
+        if (Helper.AreDocumentsUpToDate(_context, user.Id) == false)
         {
-            ModelState.AddModelError("Permit.Months", "Carregue o seu saldo para poder efetuar esta compra.");
+            ModelState.AddModelError("Permit.Months", "Atenção: os seus documentos encontram-se fora de validade, por favor atualize para poder estacionar.");
             ViewData["SpaceId"] = new SelectList(Helper.AvailableSpaces(_context), "Id", "Name");
             ViewData["VehicleId"] = new SelectList(Helper.AvailableVehicles(_context), "Id", "LicensePlate");
             return Page();
         }
 
-        if (Helper.IsItOccupied(_context, Permit.SpaceId) == true)
+        if (Helper.IsBalanceEnough(_context, Permit.VehicleId) == false)
         {
-            ModelState.AddModelError("Permit.EntryDateTime", "Este lugar está ocupado.");
+            ModelState.AddModelError("Permit.Months", "Carregue o seu saldo para poder efetuar esta compra.");
             ViewData["SpaceId"] = new SelectList(Helper.AvailableSpaces(_context), "Id", "Name");
             ViewData["VehicleId"] = new SelectList(Helper.AvailableVehicles(_context), "Id", "LicensePlate");
             return Page();

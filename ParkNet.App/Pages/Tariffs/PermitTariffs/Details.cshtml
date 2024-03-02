@@ -5,32 +5,32 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Detalhes</h1>
 
 <div>
-    <h4>PermitTariff</h4>
+    <h4>Tarifário avenças</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PermitTariff.Monthly)
+            Mensal
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PermitTariff.Monthly)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PermitTariff.Quarterly)
+            Trimestral
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PermitTariff.Quarterly)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PermitTariff.Semiannual)
+            Semestral
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PermitTariff.Semiannual)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PermitTariff.Yearly)
+            Anual
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PermitTariff.Yearly)
@@ -38,6 +38,6 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.PermitTariff.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Edit" asp-route-id="@Model.PermitTariff.Id">Editar</a> |
+    <a asp-page="./Index">Retroceder</a>
 </div>

@@ -5,33 +5,35 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1>Apagar</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Reveja a informação a apagar</h3>
 <div>
-    <h4>PermitTariff</h4>
+    <h4>
+        Tarifário avenças
+    </h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PermitTariff.Monthly)
+            Mensal
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PermitTariff.Monthly)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PermitTariff.Quarterly)
+            Trimestral
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PermitTariff.Quarterly)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PermitTariff.Semiannual)
+            Semestral
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PermitTariff.Semiannual)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PermitTariff.Yearly)
+            Anual
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PermitTariff.Yearly)
@@ -40,7 +42,7 @@
     
     <form method="post">
         <input type="hidden" asp-for="PermitTariff.Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
+        <input type="submit" value="Apagar" class="btn btn-danger" /> |
+        <a asp-page="./Index">Retroceder</a>
     </form>
 </div>

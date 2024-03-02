@@ -70,7 +70,6 @@ public class EditModel : PageModel
 
         _context.Transactions.Add(transaction);
 
-
         try
         {
             await _context.SaveChangesAsync();

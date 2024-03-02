@@ -13,14 +13,6 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @if (Model.DocumentsUpToDate == false)
-            {
-                <p>
-                    <span style="color: red;">
-                        Atenção: os seus documentos encontram-se fora de validade, por favor atualize para poder estacionar.
-                    </span>
-                </p>
-            }
             <div class="form-group">
                 <label asp-for="Ticket.EntryDateTime" class="control-label">Data de entrada</label>
                 <input asp-for="Ticket.EntryDateTime" class="form-control" />

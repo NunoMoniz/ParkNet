@@ -17,6 +17,7 @@ public class IndexModel : PageModel
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
         Space = await _context.Spaces
+            .Where(s => s.Type == 'C' || s.Type == 'M')
             .Include(s => s.Floor).ToListAsync();
     }
 }

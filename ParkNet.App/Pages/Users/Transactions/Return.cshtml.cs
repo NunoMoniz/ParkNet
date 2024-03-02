@@ -1,11 +1,11 @@
 ﻿namespace ParkNet.App.Pages.Users.Transactions;
 
 [Authorize]
-public class CreateModel : PageModel
+public class ReturnModel : PageModel
 {
     private readonly ParkNet.App.Data.ApplicationDbContext _context;
 
-    public CreateModel(ParkNet.App.Data.ApplicationDbContext context)
+    public ReturnModel(ParkNet.App.Data.ApplicationDbContext context)
     {
         _context = context;
     }
@@ -26,9 +26,9 @@ public class CreateModel : PageModel
         {
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "UserName");
             return Page();
-        }
+        };
 
-        Transaction.Datetime = DateTime.Now;
+        Transaction = Helper.Return(Transaction.InsAndOuts);
 
         _context.Transactions.Add(Transaction);
         await _context.SaveChangesAsync();

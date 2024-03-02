@@ -5,8 +5,8 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Apagar</h1>
-
+<h1>Anular</h1>
+<h3>Reveja a transação a anular</h3>
 <div>
     <h4>Transação</h4>
     <hr />
@@ -27,7 +27,7 @@
     
     <form method="post">
         <input type="hidden" asp-for="Transaction.Id" />
-        <input type="submit" value="Apagar" class="btn btn-danger" /> |
+        <input type="submit" value="Anular" class="btn btn-danger" /> |
         <a asp-page="./Index">Retroceder</a>
     </form>
 </div>

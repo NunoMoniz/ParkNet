@@ -1,7 +1,4 @@
-﻿using ParkNet.App.Data.Entities.Parks;
-using ParkNet.App.Data.Entities.Users;
-
-namespace ParkNet.App;
+﻿namespace ParkNet.App;
 
 public class Helper
 {
@@ -148,5 +145,15 @@ public class Helper
                 break;
         }
         return transaction;
+    }
+
+    public static Transaction Return(double input)
+    {
+        double negative = input * -1;
+        return new Transaction
+        {
+            InsAndOuts = negative,
+            Datetime = DateTime.Now,
+        };
     }
 }
